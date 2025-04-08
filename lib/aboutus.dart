@@ -26,19 +26,19 @@ class AboutUsScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Image
+          
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/abt.jpg'), // Ensure this image is in your assets folder
+                image: AssetImage('assets/abt.jpg'), 
                 fit: BoxFit.fill,
                 
               ),
             ),
           ),
-          // Overlay with text content
+          
           Container(
-            color: Colors.black.withOpacity(0.6), // Dark overlay for readability
+            color: Colors.black.withOpacity(0.6), 
             padding: EdgeInsets.all(16.0),
             child: SingleChildScrollView(
               child: Column(

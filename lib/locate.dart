@@ -21,11 +21,9 @@ class MyApp extends StatelessWidget {
 class LocateUsScreen extends StatelessWidget {
   const LocateUsScreen({super.key});
 
-  // Google Maps URL
   final String googleMapsUrl =
       "https://www.google.com/maps/place/Max+Burn+Fitness+Center/@7.3104963,80.6335188,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae36725c0e6f63f:0x9b69711b2306c0dc!8m2!3d7.3104963!4d80.6360937!16s%2Fg%2F11hmz0mlgz?entry=ttu&g_ep=EgoyMDI1MDMxMi4wIKXMDSoASAFQAw%3D%3D";
 
-  // Function to open URL
   Future<void> _openGoogleMaps() async {
     Uri url = Uri.parse(googleMapsUrl);
     if (await canLaunchUrl(url)) {
@@ -41,25 +39,23 @@ class LocateUsScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Opacity(
-              opacity: 0.4, // Adjust transparency
+              opacity: 0.4, 
               child: Image.asset(
-                'assets/home.jpeg', // Add this image to your assets folder
+                'assets/home.jpeg', 
                 fit: BoxFit.cover,
               ),
             ),
           ),
 
-          // UI Content
+       
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                // Locate Us Title
                 Row(
                   children: [
                     const Icon(Icons.location_on, color: Colors.white),
@@ -76,7 +72,6 @@ class LocateUsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
 
-                // Visit Our Center Text
                 Text(
                   'Visit Our Center',
                   style: GoogleFonts.montserrat(
@@ -86,7 +81,6 @@ class LocateUsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
 
-                // Clickable Location Link
                 GestureDetector(
                   onTap: _openGoogleMaps,
                   child: Container(
@@ -105,7 +99,7 @@ class LocateUsScreen extends StatelessWidget {
                           '202/3 Katugastota Rd, Kandy',
                           style: GoogleFonts.montserrat(
                             fontSize: 14,
-                            color: Colors.blue, // Make it look like a link
+                            color: Colors.blue, 
                             decoration: TextDecoration.underline,
                           ),
                         ),

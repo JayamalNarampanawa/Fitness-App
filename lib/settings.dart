@@ -27,13 +27,13 @@ class SettingsScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/home.jpeg"), // Add this image to assets
+                image: AssetImage("assets/home.jpeg"), 
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.6), // Dark overlay
+            color: Colors.black.withOpacity(0.6), 
           ),
           Center(
             child: Column(

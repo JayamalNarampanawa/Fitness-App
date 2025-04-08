@@ -38,13 +38,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/home.jpeg"), // Add this image to assets
+                image: AssetImage("assets/home.jpeg"), 
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.6), // Dark overlay
+            color: Colors.black.withOpacity(0.6), 
           ),
           SingleChildScrollView(
             child: Padding(
@@ -55,7 +55,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(height: 60),
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage("assets/j.jpg"), // Profile image
+                    backgroundImage: AssetImage("assets/j.jpg"), 
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -71,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      // Save logic here
+                      
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,

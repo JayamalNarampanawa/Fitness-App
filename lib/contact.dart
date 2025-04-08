@@ -28,16 +28,14 @@ class ContactUsScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/home.jpeg'), // Add this image to assets
+                image: AssetImage('assets/home.jpeg'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Dark Overlay
           Container(
             color: Colors.black.withOpacity(0.6),
             padding: EdgeInsets.all(16.0),
@@ -60,10 +58,8 @@ class ContactUsScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 SizedBox(height: 20),
-                // Contact Number
                 ContactField(icon: Icons.phone, text: '+94759225800', isPhone: true),
                 SizedBox(height: 10),
-                // Email
                 ContactField(icon: Icons.email, text: 'maxburnfitness@gmail.com', isPhone: false),
                 SizedBox(height: 30),
                 Text(
