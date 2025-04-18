@@ -75,6 +75,12 @@ flutter:
   - assets/wLose.png
   - assets/Wgain.png
   - assets/maintain.jpg
+  - assets/chest.jpeg
+  - assets/arm.jpg
+  - assets/abs.jpg
+  - assets/legs.jpg
+  - assets/back.jpg
+  - assets/yoga.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
