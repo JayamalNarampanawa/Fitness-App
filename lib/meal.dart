@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'dashboard.dart';
+import 'settings.dart';
+import 'homeschedule.dart';
+import 'weightLoss.dart';
+import 'weightGain.dart';
+import 'maintain.dart';
 
 void main() => runApp(MealApp());
 
@@ -7,7 +12,7 @@ class MealApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'meal',
+      title: 'Meal',
       theme: ThemeData.dark(),
       home: MealScreen(),
       debugShowCheckedModeBanner: false,
@@ -15,19 +20,55 @@ class MealApp extends StatelessWidget {
   }
 }
 
-class MealScreen extends StatelessWidget {
+class MealScreen extends StatefulWidget {
+  @override
+  _MealScreenState createState() => _MealScreenState();
+}
+
+class _MealScreenState extends State<MealScreen> {
+  int _currentIndex = 2;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeWorkoutScreen()),
+        );
+        break;
+      case 2:
+        // Already on this screen
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SettingsScreen()),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Opacity(
               opacity: 0.4,
               child: Image.asset(
-                'assets/home.jpeg', // <- Replace with your asset
+                'assets/home.jpeg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -37,7 +78,7 @@ class MealScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 children: [
-                  // Header with name and profile
+                  // Top row: name and avatar
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -46,46 +87,74 @@ class MealScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'), // <- Replace with your profile asset
+                        backgroundImage: AssetImage('assets/j.jpg'),
                       ),
                     ],
                   ),
                   SizedBox(height: 160),
-                  
-                  // Meal Plan Options
-                  MealOption(
-                    title: 'Weight loss meal plan',
-                    icon: Icons.fitness_center,
-                    imageAsset: 'assets/wLose.png',
+
+                  // Meal Options
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => WeightLossMealPlanScreen()),
+                      );
+                    },
+                    child: MealOption(
+                      title: 'Weight loss meal plan',
+                      icon: Icons.fitness_center,
+                      imageAsset: 'assets/wLose.png',
+                    ),
                   ),
                   SizedBox(height: 50),
-                  MealOption(
-                    title: 'Weight gain meal plan',
-                    icon: Icons.accessibility,
-                    imageAsset: 'assets/Wgain.png',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => WeightGainMealPlanScreen()),
+                      );
+                    },
+                    child: MealOption(
+                      title: 'Weight gain meal plan',
+                      icon: Icons.accessibility,
+                      imageAsset: 'assets/Wgain.png',
+                    ),
                   ),
                   SizedBox(height: 50),
-                  MealOption(
-                    title: 'Maintenance meal plan',
-                    icon: Icons.monitor_heart,
-                    imageAsset: 'assets/maintain.jpg',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MaintenanceMealPlanApp()),
+                      );
+                    },
+                    child: MealOption(
+                      title: 'Body Maintain meal plan',
+                      icon: Icons.monitor_heart,
+                      imageAsset: 'assets/maintain.jpg',
+                    ),
                   ),
-                  
                 ],
               ),
             ),
           ),
         ],
       ),
+
+      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black87,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Home Workout"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );
