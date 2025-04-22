@@ -82,6 +82,8 @@ flutter:
   - assets/legs.jpg
   - assets/back.jpg
   - assets/yoga.jpg
+  - assets/fullbody.jpeg
+  
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

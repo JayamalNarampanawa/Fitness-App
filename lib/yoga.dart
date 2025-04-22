@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
+import 'settings.dart';
+import 'meal.dart';
 
-class YogaScreen extends StatelessWidget {
+class YogaScreen extends StatefulWidget {
+  @override
+  _YogaScreenState createState() => _YogaScreenState();
+}
+
+class _YogaScreenState extends State<YogaScreen> {
+  int _currentIndex = 1;
+
   final List<Map<String, String>> exercises = [
     {'name': 'Easy Pose', 'time': '30s'},
     {'name': 'Half Lord of the Fishes', 'time': '30s'},
@@ -11,65 +21,134 @@ class YogaScreen extends StatelessWidget {
     {'name': 'Child’s Pose', 'time': '30s'},
   ];
 
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+        break;
+      case 1:
+        // current screen
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      bottomNavigationBar: _buildBottomNavigationBar(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader('Yoga', 'assets/yoga.jpg'),
-            Expanded(
-              child: ListView.builder(
-                itemCount: exercises.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      exercises[index]['name']!,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    trailing: Text(
-                      exercises[index]['time']!,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  );
-                },
-              ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.9,
+              child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
-          ],
-        ),
+          ),
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Jayamal Narampanawa",
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      CircleAvatar(
+                        backgroundImage: AssetImage('assets/j.jpg'),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                      "Yoga Workout",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/yoga.jpg',
+                      height: 150,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "${exercises.length} Exercises",
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: exercises.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[900],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ListTile(
+                            leading: Icon(Icons.self_improvement, color: Colors.white),
+                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
+                            trailing: Text(
+                              exercises[index]["time"]!,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () {},
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget _buildHeader(String title, String imagePath) {
-    return Column(
-      children: [
-        Container(
-          height: 200,
-          width: double.infinity,
-          child: Image.asset(imagePath, fit: BoxFit.cover),
-        ),
-        SizedBox(height: 10),
-        Text(
-          title,
-          style: TextStyle(color: Colors.white, fontSize: 24),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      backgroundColor: Colors.grey[900],
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-      ],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black87,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Workout"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        ],
+      ),
     );
   }
 }

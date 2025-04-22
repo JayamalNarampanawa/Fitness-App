@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'meal.dart';
 import 'settings.dart';
+import 'fullBody.dart';
+import 'chest.dart';
+import 'arm.dart';
+import 'abs.dart';
+import 'legs.dart';
+import 'back.dart';
+import 'yoga.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,6 +70,32 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
     }
   }
 
+  void _navigateToWorkout(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => FullBodyWorkoutScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Chestscreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => ArmsScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => AbsScreen()));
+        break;
+      case 4:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => LegsScreen()));
+        break;
+      case 5:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => BackScreen()));
+        break;
+      case 6:
+        Navigator.push(context, MaterialPageRoute(builder: (_) => YogaScreen()));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +123,6 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
                       Text(
                         "Jayamal Narampanawa",
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                        
                       ),
                       CircleAvatar(
                         backgroundImage: AssetImage('assets/j.jpg'),
@@ -130,9 +162,7 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
                           child: ListTile(
                             title: Text(categories[index], style: TextStyle(color: Colors.white)),
                             trailing: Icon(Icons.play_arrow, color: Colors.white),
-                            onTap: () {
-                              // Placeholder for category tap
-                            },
+                            onTap: () => _navigateToWorkout(index),
                           ),
                         ),
                       );

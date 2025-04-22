@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Add this import for date formatting
+import 'package:intl/intl.dart';
 import 'homeschedule.dart';
 import 'meal.dart';
 import 'settings.dart';
@@ -98,7 +98,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
-            label: 'Home',
+            label: 'Home Workout',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant_menu),
