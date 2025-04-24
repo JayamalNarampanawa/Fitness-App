@@ -1,7 +1,12 @@
+import 'package:fitness_app/aboutus.dart';
+import 'package:fitness_app/contact.dart';
+import 'package:fitness_app/locate.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'meal.dart';
 import 'homeschedule.dart';
+import 'profile.dart';
+import 'login.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -43,6 +48,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void _handleLogout() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Thank You. See you soon!"),
+        duration: Duration(seconds: 2),
+      ),
+    );
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,11 +84,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildButton(context, Icons.person, "Edit Profile"),
-                _buildButton(context, Icons.phone, "Contact Us"),
-                _buildButton(context, Icons.info, "About Us"),
-                _buildButton(context, Icons.location_on, "Locate Us"),
-                _buildButton(context, Icons.logout, "Logout"),
+                _buildButton(context, Icons.person, "Edit Profile", () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => EditProfileScreen()));
+                }),
+                _buildButton(context, Icons.phone, "Contact Us", () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => ContactUsScreen()));
+                }),
+                _buildButton(context, Icons.info, "About Us", () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUsScreen()));
+                }),
+                _buildButton(context, Icons.location_on, "Locate Us", () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => LocateUsScreen()));
+                }),
+                _buildButton(context, Icons.logout, "Logout", _handleLogout),
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: () {},
@@ -99,14 +127,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildButton(BuildContext context, IconData icon, String text) {
+  Widget _buildButton(BuildContext context, IconData icon, String text, VoidCallback onPressed) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
         width: 250,
         height: 55,
         child: ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey.withOpacity(0.7),
             shape: RoundedRectangleBorder(
