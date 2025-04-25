@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'settings.dart'; // Import the Settings screen
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,21 +31,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  void _saveProfile() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Saved Successfully"),
+        backgroundColor: Colors.green,
+      ),
+    );
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SettingsScreen()),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/home.jpeg"), 
+                image: AssetImage("assets/home.jpeg"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.6), 
+            color: Colors.black.withOpacity(0.6),
           ),
           SingleChildScrollView(
             child: Padding(
@@ -52,35 +69,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 60),
-                  CircleAvatar(
+                  const SizedBox(height: 60),
+                  const CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage("assets/j.jpg"), 
+                    backgroundImage: AssetImage("assets/j.jpg"),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Edit Profile Picture",
-                    style: TextStyle(color: Colors.cyan, fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.cyan,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildTextField("Full Name", nameController),
                   _buildTextField("Email", emailController, isEmail: true),
                   _buildTextField("Contact Number", contactController),
                   _buildWeightHeightField("Weight", weightController, "kg"),
                   _buildWeightHeightField("Height", heightController, "cm"),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      
-                    },
+                    onPressed: _saveProfile,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text("Save", style: TextStyle(color: Colors.white, fontSize: 18)),
+                    child: const Text("Save", style: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
                 ],
               ),
@@ -97,8 +116,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(color: Colors.white, fontSize: 16)),
-          SizedBox(height: 5),
+          Text(label, style: const TextStyle(color: Colors.white, fontSize: 16)),
+          const SizedBox(height: 5),
           TextField(
             controller: controller,
             decoration: InputDecoration(
@@ -108,9 +127,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide.none,
               ),
-              contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
               hintText: label,
-              hintStyle: TextStyle(color: Colors.white70, fontSize: 16),
+              hintStyle: const TextStyle(color: Colors.white70, fontSize: 16),
             ),
             keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
           ),
@@ -125,8 +144,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: Colors.white, fontSize: 16)),
-          SizedBox(width: 10),
+          Text(label, style: const TextStyle(color: Colors.white, fontSize: 16)),
+          const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: controller,
@@ -137,15 +156,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,
                 ),
-                contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
                 hintText: label,
-                hintStyle: TextStyle(color: Colors.white70, fontSize: 16),
+                hintStyle: const TextStyle(color: Colors.white70, fontSize: 16),
               ),
               keyboardType: TextInputType.number,
             ),
           ),
-          SizedBox(width: 10),
-          Text(unit, style: TextStyle(color: Colors.white, fontSize: 16)),
+          const SizedBox(width: 10),
+          Text(unit, style: const TextStyle(color: Colors.white, fontSize: 16)),
         ],
       ),
     );

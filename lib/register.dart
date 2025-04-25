@@ -1,5 +1,7 @@
+import 'package:fitness_app/termsconditions.dart';
 import 'package:flutter/material.dart';
-import 'login.dart'; // Import Login Screen
+import 'login.dart'; 
+
 
 void main() {
   runApp(const MyApp());
@@ -33,23 +35,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_isTermsAccepted) {
       // Show "Registration Successful" message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Registration Successful"),
           backgroundColor: Colors.green,
         ),
       );
 
       // Delay navigation for 2 seconds to show the message
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       });
     } else {
       // Show error if terms are not accepted
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("You must accept the terms and conditions"),
           backgroundColor: Colors.red,
         ),
@@ -62,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/home.jpeg"),
             fit: BoxFit.cover,
@@ -131,7 +133,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const Text("I agree to the ", style: TextStyle(color: Colors.white)),
                   GestureDetector(
                     onTap: () {
-                      // Optional: Add a terms & conditions popup here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TermsAndConditionsScreen()),
+                      );
                     },
                     child: const Text(
                       "terms and conditions",
@@ -183,7 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         suffixIcon: PopupMenuButton<String>(
           color: Colors.black87,
-          icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+          icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
           onSelected: (String value) {
             setState(() {
               selectedGender = value;
@@ -194,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             return ["Male", "Female", "Other"].map((String value) {
               return PopupMenuItem<String>(
                 value: value,
-                child: Text(value, style: TextStyle(color: Colors.white)),
+                child: Text(value, style: const TextStyle(color: Colors.white)),
               );
             }).toList();
           },

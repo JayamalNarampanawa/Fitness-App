@@ -25,41 +25,143 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     switch (index) {
       case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeWorkoutScreen()),
-        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeWorkoutScreen()));
         break;
       case 2:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MealScreen()),
-        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MealScreen()));
         break;
       case 3:
-        // current screen
+        // Already on Settings
         break;
     }
   }
 
   void _handleLogout() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text("Thank You. See you soon!"),
         duration: Duration(seconds: 2),
       ),
     );
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    });
+  }
+
+  void _confirmDeleteAccount() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text("Delete Account", style: TextStyle(color: Colors.redAccent)),
+        content: const Text(
+          "Are you sure you want to delete your account?",
+          style: TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("No", style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _askReasonBeforeDelete();
+            },
+            child: const Text("Yes", style: TextStyle(color: Colors.redAccent)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _askReasonBeforeDelete() {
+    TextEditingController reasonController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text("We're sorry to see you go", style: TextStyle(color: Colors.white)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Would you like to tell us why you're leaving?",
+              style: TextStyle(color: Colors.white70),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: reasonController,
+              maxLines: 3,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: "Your reason (optional)",
+                hintStyle: const TextStyle(color: Colors.white54),
+                filled: true,
+                fillColor: Colors.white10,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _finalizeAccountDeletion(reasonController.text);
+            },
+            child: const Text("Submit", style: TextStyle(color: Colors.blueAccent)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _finalizeAccountDeletion(); // no reason
+            },
+            child: const Text("Skip", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _finalizeAccountDeletion([String? reason]) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircularProgressIndicator(color: Colors.redAccent),
+                SizedBox(height: 16),
+                Text("Deleting account...", style: TextStyle(color: Colors.white, fontSize: 16)),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pop(context); // Close loading dialog
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("We're sorry to see you go."),
+          backgroundColor: Colors.redAccent,
+        ),
       );
+
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      });
     });
   }
 
@@ -70,16 +172,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/home.jpeg"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.6),
-          ),
+          Container(color: Colors.black.withOpacity(0.6)),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -97,13 +197,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => LocateUsScreen()));
                 }),
                 _buildButton(context, Icons.logout, "Logout", _handleLogout),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Delete Account",
-                    style: TextStyle(color: Colors.red, fontSize: 16),
-                  ),
+                  onPressed: _confirmDeleteAccount,
+                  child: const Text("Delete Account", style: TextStyle(color: Colors.red, fontSize: 16)),
                 ),
               ],
             ),
@@ -117,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         onTap: _onTabTapped,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
           BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Workout"),
           BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
@@ -137,15 +234,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey.withOpacity(0.7),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
           icon: Icon(icon, color: Colors.white),
-          label: Text(
-            text,
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
+          label: Text(text, style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
       ),
     );

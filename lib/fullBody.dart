@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'jumpingjacks.dart';
+import 'wallSit.dart';
+import 'pushUps.dart';
+import 'crunches.dart';
+import 'squats.dart';
+import 'tricepPushUps.dart';
+import 'plank.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,24 +40,15 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
 
     switch (index) {
       case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
         break;
       case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MealScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
         break;
       case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SettingsScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
         break;
     }
   }
@@ -60,7 +58,6 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
     {"name": "Wall Sit", "time": "30s"},
     {"name": "Push-Ups", "time": "30s"},
     {"name": "Crunches", "time": "30s"},
-    {"name": "Set-Ups", "time": "30s"},
     {"name": "Squats", "time": "30s"},
     {"name": "Tricep Dips", "time": "30s"},
     {"name": "Plank", "time": "30s"},
@@ -74,17 +71,13 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.9,
-              child: Image.asset(
-                'assets/home.jpeg',
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Top Row: Name and Profile
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                   child: Row(
@@ -94,37 +87,25 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                         "Jayamal Narampanawa",
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
-                      ),
+                      CircleAvatar(backgroundImage: AssetImage('assets/j.jpg')),
                     ],
                   ),
                 ),
-                // Subheading: Full body workout
-                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                         child: Center(
-                            child: Text(
-                            "Full body workout",
-                              style: TextStyle(
-                            fontSize: 20,
-                         fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                     ),
-                   ),
-                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                      "Full body workout",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      'assets/fullbody.jpeg',
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.asset('assets/fullbody.jpeg', height: 150, width: double.infinity, fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -133,7 +114,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "8 Exercises",
+                      "7 Exercises",
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
                   ),
@@ -143,6 +124,9 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                   child: ListView.builder(
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
+                      String name = exercises[index]["name"]!;
+                      String time = exercises[index]["time"]!;
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                         child: Container(
@@ -152,12 +136,25 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                           ),
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
-                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
-                            trailing: Text(
-                              exercises[index]["time"]!,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onTap: () {},
+                            title: Text(name, style: TextStyle(color: Colors.white)),
+                            trailing: Text(time, style: TextStyle(color: Colors.white)),
+                            onTap: () {
+                              if (name == "Jumping Jacks") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => JumpingJacksScreen()));
+                              } else if (name == "Wall Sit") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => WallSitScreen()));
+                              } else if (name == "Push-Ups") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => PushUpsScreen()));
+                              } else if (name == "Crunches") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => crucnhesScreen()));
+                              } else if (name == "Squats") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SquatScreen()));
+                              } else if (name == "Tricep Dips") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => tricepScreen()));
+                              } else if (name == "Plank") {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => plankScreen()));
+                              }
+                            },
                           ),
                         ),
                       );
@@ -176,7 +173,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
         onTap: _onTabTapped,
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
           BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Home Workout"),
           BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
