@@ -1,5 +1,6 @@
+import 'package:fitness_app/frogotpw.dart';
 import 'package:flutter/material.dart';
-import 'register.dart'; 
+import 'register.dart';
 import 'dashboard.dart';
 
 void main() {
@@ -52,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/home.jpeg"), 
+            image: AssetImage("assets/home.jpeg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -93,7 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      // Handle Forgot Password tap
+                      // Navigate to Forgot Password page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                      );
                     },
                     child: const Text(
                       "Forgot Password",
@@ -123,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 12),
               ),
               const SizedBox(height: 5),
-              Icon(Icons.fitness_center, color: Colors.white, size: 40),
+              const Icon(Icons.fitness_center, color: Colors.white, size: 40),
               const Text(
                 "MAXburn fitness center",
                 style: TextStyle(color: Colors.white, fontSize: 14),
@@ -152,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: errorText, // Show error message if any
-            errorStyle: TextStyle(color: Colors.red),
+            errorText: errorText,
+            errorStyle: const TextStyle(color: Colors.red),
           ),
         ),
       ],
