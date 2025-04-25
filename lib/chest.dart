@@ -22,7 +22,7 @@ class _ChestscreenState extends State<Chestscreen> {
     {'name': 'Incline Push Ups', 'time': '20s'},
     {'name': 'Push Ups', 'time': '20s'},
     {'name': 'Decline Push Ups', 'time': '20s'},
-    {'name': 'Plank With Shoulder Tap', 'time': '20s'},
+    {'name': 'Psh Ups With Shoulder Tap', 'time': '20s'},
   ];
 
   void _onTabTapped(int index) {
@@ -59,7 +59,7 @@ class _ChestscreenState extends State<Chestscreen> {
       case 'Decline Push Ups':
         Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinePushUps()));
         break;
-      case 'Plank With Shoulder Tap':
+      case 'Push Ups With Shoulder Tap':
         Navigator.push(context, MaterialPageRoute(builder: (context) => Plankwshouldertaps()));
         break;
     }

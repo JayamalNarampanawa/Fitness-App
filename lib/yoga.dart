@@ -16,7 +16,7 @@ class _YogaScreenState extends State<YogaScreen> {
     {'name': 'Half Lord of the Fishes', 'time': '30s'},
     {'name': 'Camel Pose', 'time': '30s'},
     {'name': 'Bridge Pose', 'time': '30s'},
-    {'name': 'Seated Forward Bend', 'time': '30s'},
+    {'name': 'Standing Forward Bend', 'time': '30s'},
     {'name': 'Cobra Stretch', 'time': '30s'},
     {'name': 'Child’s Pose', 'time': '30s'},
   ];

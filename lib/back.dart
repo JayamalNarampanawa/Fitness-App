@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'squats.dart';
+import 'bridge.dart';
+import 'cobra.dart';
+import 'pushUps.dart';
 
 class BackScreen extends StatefulWidget {
   @override
@@ -12,11 +16,10 @@ class _BackScreenState extends State<BackScreen> {
   int _currentIndex = 1;
 
   final List<Map<String, String>> exercises = [
-    {'name': 'T Raises', 'time': '30s'},
-    {'name': 'Single-Arm Dumbbell Row', 'time': '30s'},
-    {'name': 'Delt Raise', 'time': '30s'},
-    {'name': 'Push-Up Hold', 'time': '30s'},
-    {'name': 'Twister', 'time': '30s'},
+    {'name': 'Squats', 'time': '30s'},
+    {'name': 'Bridge', 'time': '30s'},
+    {'name': 'Cobra Pose', 'time': '30s'},
+    {'name': 'Push-Up', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {
@@ -36,6 +39,23 @@ class _BackScreenState extends State<BackScreen> {
         break;
       case 3:
         Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
+  void _navigateToExercise(String name) {
+    switch (name.toLowerCase()) {
+      case 'squats':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SquatScreen()));
+        break;
+      case 'bridge':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Bridge()));
+        break;
+      case 'cobra pose':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Cobra()));
+        break;
+      case 'push-up':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PushUpsScreen()));
         break;
     }
   }
@@ -107,6 +127,7 @@ class _BackScreenState extends State<BackScreen> {
                   child: ListView.builder(
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
+                      final exerciseName = exercises[index]["name"]!;
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                         child: Container(
@@ -116,12 +137,12 @@ class _BackScreenState extends State<BackScreen> {
                           ),
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
-                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
+                            title: Text(exerciseName, style: TextStyle(color: Colors.white)),
                             trailing: Text(
                               exercises[index]["time"]!,
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () {},
+                            onTap: () => _navigateToExercise(exerciseName),
                           ),
                         ),
                       );

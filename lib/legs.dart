@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'squats.dart';
+import 'lungues.dart';
+import 'squatJack.dart';
+import 'sumoSquat.dart';
+import 'crossOverLungues.dart';
 
 class LegsScreen extends StatefulWidget {
   @override
@@ -12,11 +17,11 @@ class _LegsScreenState extends State<LegsScreen> {
   int _currentIndex = 1;
 
   final List<Map<String, String>> exercises = [
-    {'name': 'classic Squat', 'time': '30s'},
-    {'name': 'Lunges', 'time': '30s'},
-    {'name': 'Squat Jack', 'time': '30s'},
+    {'name': 'Classic Squat', 'time': '30s'},
+    {'name': 'Jumping Lunges', 'time': '30s'},
+    {'name': 'Jumping Squats', 'time': '30s'},
     {'name': 'Sumo Squats', 'time': '30s'},
-    {'name': 'cross over lunges', 'time': '30s'},
+    {'name': 'Reverse Lunges', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {
@@ -36,6 +41,26 @@ class _LegsScreenState extends State<LegsScreen> {
         break;
       case 3:
         Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
+  void _navigateToExercise(String name) {
+    switch (name.toLowerCase()) {
+      case 'classic squat':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SquatScreen()));
+        break;
+      case 'Jumping lunges':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Lungues()));
+        break;
+      case 'Jumping Squats':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Squatjack()));
+        break;
+      case 'sumo squats':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Sumosquat()));
+        break;
+      case 'Reverse Lunges lunges':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Crossoverlungues()));
         break;
     }
   }
@@ -107,6 +132,7 @@ class _LegsScreenState extends State<LegsScreen> {
                   child: ListView.builder(
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
+                      final exerciseName = exercises[index]["name"]!;
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                         child: Container(
@@ -116,12 +142,12 @@ class _LegsScreenState extends State<LegsScreen> {
                           ),
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
-                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
+                            title: Text(exerciseName, style: TextStyle(color: Colors.white)),
                             trailing: Text(
                               exercises[index]["time"]!,
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () {},
+                            onTap: () => _navigateToExercise(exerciseName),
                           ),
                         ),
                       );

@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class Plankwalk extends StatefulWidget {
+class Heeltap extends StatefulWidget {
   @override
-  _Plankwalk createState() => _Plankwalk();
+  _Heeltap createState() => _Heeltap();
 }
 
-class _Plankwalk extends State<Plankwalk> {
+class _Heeltap extends State<Heeltap> {
   late VideoPlayerController _controller;
   Timer? _timer;
   int _seconds = 30;
@@ -17,7 +17,7 @@ class _Plankwalk extends State<Plankwalk> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/Inchworm.mp4')
+    _controller = VideoPlayerController.asset('assets/PilatesHeelTaps.mp4')
       ..initialize().then((_) => setState(() {}));
   }
 

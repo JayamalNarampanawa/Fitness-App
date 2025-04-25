@@ -1,7 +1,12 @@
+import 'package:fitness_app/tricepPushUps.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'inchworm.dart';
+import 'plank.dart';
+import 'BandBicepCurls.dart';
+import 'plankWalk.dart';
 
 class ArmsScreen extends StatefulWidget {
   @override
@@ -14,7 +19,7 @@ class _ArmsScreenState extends State<ArmsScreen> {
   final List<Map<String, String>> exercises = [
     {'name': 'Tricep Dips', 'time': '30s'},
     {'name': 'Inchworm', 'time': '30s'},
-    {'name': ' Plank', 'time': '30s'},
+    {'name': 'Plank', 'time': '30s'},
     {'name': 'Band Bicep Curls', 'time': '30s'},
     {'name': 'Plank Walk', 'time': '30s'},
   ];
@@ -26,25 +31,35 @@ class _ArmsScreenState extends State<ArmsScreen> {
 
     switch (index) {
       case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        
         break;
       case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MealScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
         break;
       case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SettingsScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
+  void _navigateToExercise(String name) {
+    switch (name) {
+      case 'Tricep Dips':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => tricepScreen()));
+        break;
+      case 'Inchworm':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Inchworm()));
+        break;
+      case 'Plank':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => plankScreen()));
+        break;
+      case 'Band Bicep Curls':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Bandbicepcurls()));
+        break;
+      case 'Plank Walk':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Plankwalk()));
         break;
     }
   }
@@ -133,7 +148,7 @@ class _ArmsScreenState extends State<ArmsScreen> {
                               exercises[index]["time"]!,
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () {},
+                            onTap: () => _navigateToExercise(exercises[index]["name"]!.trim()),
                           ),
                         ),
                       );

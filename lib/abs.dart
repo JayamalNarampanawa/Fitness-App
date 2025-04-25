@@ -1,7 +1,13 @@
+import 'package:fitness_app/MountainClimbers.dart';
+import 'package:fitness_app/heeltap.dart';
+import 'package:fitness_app/russianTwist.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'sidePlank.dart';
+import 'JackKnifeCrunch.dart';
+import 'plank.dart';
 
 class AbsScreen extends StatefulWidget {
   @override
@@ -15,9 +21,9 @@ class _AbsScreenState extends State<AbsScreen> {
     {'name': 'Heel Tap', 'time': '30s'},
     {'name': 'Mountain Climbers', 'time': '30s'},
     {'name': 'Russian Twist', 'time': '30s'},
-    {'name': 'Side Plank with Leg Raise', 'time': '30s'},
+    {'name': 'Side Plank', 'time': '30s'},
     {'name': 'Jack Knife Crunch', 'time': '30s'},
-    {'name': 'plank', 'time': '30s'},
+    {'name': 'Plank', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {
@@ -37,6 +43,29 @@ class _AbsScreenState extends State<AbsScreen> {
         break;
       case 3:
         Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
+  void _navigateToExercise(String name) {
+    switch (name) {
+      case 'Heel Tap':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Heeltap()));
+        break;
+      case 'Mountain Climbers':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Mountainclimbers()));
+        break;
+      case 'Russian Twist':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Russiantwist()));
+        break;
+      case 'Side Plank':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Sideplank()));
+        break;
+      case 'Jack Knife Crunch':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Jackknifecrunch()));
+        break;
+      case 'Plank':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => plankScreen()));
         break;
     }
   }
@@ -122,7 +151,7 @@ class _AbsScreenState extends State<AbsScreen> {
                               exercises[index]["time"]!,
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () {},
+                            onTap: () => _navigateToExercise(exercises[index]["name"]!.trim()),
                           ),
                         ),
                       );
