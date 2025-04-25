@@ -12,13 +12,11 @@ class _LegsScreenState extends State<LegsScreen> {
   int _currentIndex = 1;
 
   final List<Map<String, String>> exercises = [
-    {'name': 'Goblet Squat', 'time': '30s'},
-    {'name': 'Pendulum Lunges', 'time': '30s'},
-    {'name': 'Classic Squats', 'time': '30s'},
-    {'name': 'Step-Ups', 'time': '30s'},
-    {'name': 'Hip Bridges', 'time': '30s'},
-    {'name': 'Single-leg Deadlifts', 'time': '30s'},
-    {'name': 'Touch Down Jacks', 'time': '30s'},
+    {'name': 'classic Squat', 'time': '30s'},
+    {'name': 'Lunges', 'time': '30s'},
+    {'name': 'Squat Jack', 'time': '30s'},
+    {'name': 'Sumo Squats', 'time': '30s'},
+    {'name': 'cross over lunges', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {

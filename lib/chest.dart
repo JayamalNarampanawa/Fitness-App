@@ -1,7 +1,13 @@
+import 'package:fitness_app/declinePushUps.dart';
+import 'package:fitness_app/plankWShoulderTaps.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+import 'DiamondPushUps.dart';
+import 'inclinePushUps.dart';
+import 'pushUps.dart';
+
 
 class Chestscreen extends StatefulWidget {
   @override
@@ -14,8 +20,8 @@ class _ChestscreenState extends State<Chestscreen> {
   final List<Map<String, String>> exercises = [
     {'name': 'Diamond Push Ups', 'time': '20s'},
     {'name': 'Incline Push Ups', 'time': '20s'},
-    {'name': 'Normal Push Ups', 'time': '20s'},
-    {'name': 'Bench Press', 'time': '20s'},
+    {'name': 'Push Ups', 'time': '20s'},
+    {'name': 'Decline Push Ups', 'time': '20s'},
     {'name': 'Plank With Shoulder Tap', 'time': '20s'},
   ];
 
@@ -26,25 +32,35 @@ class _ChestscreenState extends State<Chestscreen> {
 
     switch (index) {
       case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        
         break;
       case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MealScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
         break;
       case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SettingsScreen()),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
+  void _navigateToExercise(String name) {
+    switch (name) {
+      case 'Diamond Push Ups':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Diamondpushups()));
+        break;
+      case 'Incline Push Ups':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Inclinepushups()));
+        break;
+      case 'Push Ups':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PushUpsScreen()));
+        break;
+      case 'Decline Push Ups':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinePushUps()));
+        break;
+      case 'Plank With Shoulder Tap':
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Plankwshouldertaps()));
         break;
     }
   }
@@ -57,10 +73,7 @@ class _ChestscreenState extends State<Chestscreen> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.9,
-              child: Image.asset(
-                'assets/home.jpeg', 
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
           SafeArea(
@@ -76,9 +89,7 @@ class _ChestscreenState extends State<Chestscreen> {
                         "Jayamal Narampanawa",
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
-                      ),
+                      CircleAvatar(backgroundImage: AssetImage('assets/j.jpg')),
                     ],
                   ),
                 ),
@@ -129,11 +140,8 @@ class _ChestscreenState extends State<Chestscreen> {
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
                             title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
-                            trailing: Text(
-                              exercises[index]["time"]!,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onTap: () {},
+                            trailing: Text(exercises[index]["time"]!, style: TextStyle(color: Colors.white)),
+                            onTap: () => _navigateToExercise(exercises[index]["name"]!.trim()),
                           ),
                         ),
                       );

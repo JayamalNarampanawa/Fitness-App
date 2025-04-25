@@ -14,10 +14,9 @@ class _ArmsScreenState extends State<ArmsScreen> {
   final List<Map<String, String>> exercises = [
     {'name': 'Tricep Dips', 'time': '30s'},
     {'name': 'Inchworm', 'time': '30s'},
-    {'name': 'Lyk Plank', 'time': '30s'},
-    {'name': 'Kickboxing Punches', 'time': '30s'},
-    {'name': 'Incline Press', 'time': '30s'},
-    {'name': 'Plank Tap', 'time': '30s'},
+    {'name': ' Plank', 'time': '30s'},
+    {'name': 'Band Bicep Curls', 'time': '30s'},
+    {'name': 'Plank Walk', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {

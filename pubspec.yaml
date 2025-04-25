@@ -90,6 +90,24 @@ flutter:
   - assets/Squat.mp4
   - assets/TricepDips.mp4
   - assets/WallSit.mp4
+  - assets/DiamondPushUps.mp4
+  - assets/BandBicepCurl.mp4
+  - assets/CrossOverLunge.mp4
+  - assets/DeclinePushUp.mp4
+  - assets/Inchworm.mp4
+  - assets/InclinePushUp.mp4
+  - assets/JackKnifeCrunch.mp4
+  - assets/Lunges.mp4
+  - assets/MtClimber.mp4
+  - assets/PilatesHeelTaps.mp4
+  - assets/PlankWalk.mp4
+  - assets/pushUpShoulderTaps.mp4
+  - assets/RussianTwist.mp4
+  - assets/SidePlank.mp4
+  - assets/SquatJacks.mp4
+  - assets/SumoSquat.mp4
+  - assets/tricepPushUps.mp4
+
   
   
   #   - images/a_dot_ham.jpeg

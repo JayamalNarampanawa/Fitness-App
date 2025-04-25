@@ -12,13 +12,12 @@ class _AbsScreenState extends State<AbsScreen> {
   int _currentIndex = 1;
 
   final List<Map<String, String>> exercises = [
-    {'name': 'Hell Tap', 'time': '30s'},
-    {'name': 'Leg Lower', 'time': '30s'},
+    {'name': 'Heel Tap', 'time': '30s'},
+    {'name': 'Mountain Climbers', 'time': '30s'},
     {'name': 'Russian Twist', 'time': '30s'},
-    {'name': 'Side Plank With Dips', 'time': '30s'},
-    {'name': 'Tuck Crunch-Extend', 'time': '30s'},
-    {'name': 'Half Sit Up', 'time': '30s'},
-    {'name': 'Standing Knee To Hands', 'time': '30s'},
+    {'name': 'Side Plank with Leg Raise', 'time': '30s'},
+    {'name': 'Jack Knife Crunch', 'time': '30s'},
+    {'name': 'plank', 'time': '30s'},
   ];
 
   void _onTabTapped(int index) {
