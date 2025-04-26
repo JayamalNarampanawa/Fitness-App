@@ -1,3 +1,4 @@
+//importing packages and screens
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
@@ -6,6 +7,7 @@ import 'squats.dart';
 import 'bridge.dart';
 import 'cobra.dart';
 import 'pushUps.dart';
+import 'profile.dart'; 
 
 class BackScreen extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class BackScreen extends StatefulWidget {
 
 class _BackScreenState extends State<BackScreen> {
   int _currentIndex = 1;
-
+//exercises list
   final List<Map<String, String>> exercises = [
     {'name': 'Squats', 'time': '30s'},
     {'name': 'Bridge', 'time': '30s'},
@@ -26,13 +28,13 @@ class _BackScreenState extends State<BackScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//nav of BNB
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        // current screen
+        
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -42,7 +44,7 @@ class _BackScreenState extends State<BackScreen> {
         break;
     }
   }
-
+// nav of workouts
   void _navigateToExercise(String name) {
     switch (name.toLowerCase()) {
       case 'squats':
@@ -60,6 +62,10 @@ class _BackScreenState extends State<BackScreen> {
     }
   }
 
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));//nav to edit profile
+  }
+//UI decoration
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,16 +86,23 @@ class _BackScreenState extends State<BackScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),
                 ),
+                //heading
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -99,6 +112,8 @@ class _BackScreenState extends State<BackScreen> {
                     ),
                   ),
                 ),
+
+                //workout image
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -111,6 +126,8 @@ class _BackScreenState extends State<BackScreen> {
                     ),
                   ),
                 ),
+
+               // no. of exercises
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -154,6 +171,8 @@ class _BackScreenState extends State<BackScreen> {
           ),
         ],
       ),
+
+      //BNB
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

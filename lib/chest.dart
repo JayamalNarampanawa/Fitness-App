@@ -1,3 +1,4 @@
+//IMPORTING MY PACKAGES
 import 'package:fitness_app/declinePushUps.dart';
 import 'package:fitness_app/plankWShoulderTaps.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'meal.dart';
 import 'DiamondPushUps.dart';
 import 'inclinePushUps.dart';
 import 'pushUps.dart';
-
+import 'profile.dart'; 
 
 class Chestscreen extends StatefulWidget {
   @override
@@ -16,20 +17,20 @@ class Chestscreen extends StatefulWidget {
 
 class _ChestscreenState extends State<Chestscreen> {
   int _currentIndex = 1;
-
+//list
   final List<Map<String, String>> exercises = [
     {'name': 'Diamond Push Ups', 'time': '20s'},
     {'name': 'Incline Push Ups', 'time': '20s'},
     {'name': 'Push Ups', 'time': '20s'},
     {'name': 'Decline Push Ups', 'time': '20s'},
-    {'name': 'Psh Ups With Shoulder Tap', 'time': '20s'},
+    {'name': 'Push Ups With Shoulder Tap', 'time': '20s'},
   ];
 
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB nav
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -44,7 +45,7 @@ class _ChestscreenState extends State<Chestscreen> {
         break;
     }
   }
-
+//workout nav
   void _navigateToExercise(String name) {
     switch (name) {
       case 'Diamond Push Ups':
@@ -65,6 +66,12 @@ class _ChestscreenState extends State<Chestscreen> {
     }
   }
 
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+  }
+
+
+//UI deco
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +83,7 @@ class _ChestscreenState extends State<Chestscreen> {
               child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
+          //proflie
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,14 +93,24 @@ class _ChestscreenState extends State<Chestscreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(backgroundImage: AssetImage('assets/j.jpg')),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
+                      ),
                     ],
                   ),
                 ),
+
+                //heading
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -102,6 +120,7 @@ class _ChestscreenState extends State<Chestscreen> {
                     ),
                   ),
                 ),
+                //workout image
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -114,6 +133,8 @@ class _ChestscreenState extends State<Chestscreen> {
                     ),
                   ),
                 ),
+
+                //no.of workouts
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -125,6 +146,7 @@ class _ChestscreenState extends State<Chestscreen> {
                     ),
                   ),
                 ),
+                //  ATRIBUTES OF WORKOUTS LIST
                 SizedBox(height: 5),
                 Expanded(
                   child: ListView.builder(
@@ -153,6 +175,8 @@ class _ChestscreenState extends State<Chestscreen> {
           ),
         ],
       ),
+
+      //BNB
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

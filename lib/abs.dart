@@ -1,13 +1,17 @@
+//importing packages
 import 'package:fitness_app/MountainClimbers.dart';
 import 'package:fitness_app/heeltap.dart';
 import 'package:fitness_app/russianTwist.dart';
 import 'package:flutter/material.dart';
+
+//importing screens
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
 import 'sidePlank.dart';
 import 'JackKnifeCrunch.dart';
 import 'plank.dart';
+import 'profile.dart'; 
 
 class AbsScreen extends StatefulWidget {
   @override
@@ -16,7 +20,7 @@ class AbsScreen extends StatefulWidget {
 
 class _AbsScreenState extends State<AbsScreen> {
   int _currentIndex = 1;
-
+// exercises list
   final List<Map<String, String>> exercises = [
     {'name': 'Heel Tap', 'time': '30s'},
     {'name': 'Mountain Climbers', 'time': '30s'},
@@ -26,17 +30,16 @@ class _AbsScreenState extends State<AbsScreen> {
     {'name': 'Plank', 'time': '30s'},
   ];
 
+//Navigation of BNB (Bottom Navigation Bar)
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        // Current screen
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -46,7 +49,7 @@ class _AbsScreenState extends State<AbsScreen> {
         break;
     }
   }
-
+//Navigation of workouts
   void _navigateToExercise(String name) {
     switch (name) {
       case 'Heel Tap':
@@ -70,6 +73,12 @@ class _AbsScreenState extends State<AbsScreen> {
     }
   }
 
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+  }
+
+
+//decorating UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +87,12 @@ class _AbsScreenState extends State<AbsScreen> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.9,
-              child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
+              child: Image.asset('assets/home.jpeg',
+               fit: BoxFit.cover),
             ),
           ),
+
+          //profile area
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -90,16 +102,24 @@ class _AbsScreenState extends State<AbsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),
                 ),
+
+                //heading
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -109,6 +129,8 @@ class _AbsScreenState extends State<AbsScreen> {
                     ),
                   ),
                 ),
+
+                //image for abs
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -127,7 +149,7 @@ class _AbsScreenState extends State<AbsScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "${exercises.length} Exercises",
+                      "${exercises.length} Exercises",//no. of exercises
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
                   ),
@@ -163,6 +185,8 @@ class _AbsScreenState extends State<AbsScreen> {
           ),
         ],
       ),
+
+      //BNB decoration
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

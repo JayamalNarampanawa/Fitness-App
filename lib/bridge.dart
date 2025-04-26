@@ -1,3 +1,4 @@
+//importing
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,7 +7,7 @@ class Bridge extends StatefulWidget {
   @override
   _Bridge createState() => _Bridge();
 }
-
+//variables declerations
 class _Bridge extends State<Bridge> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -17,10 +18,10 @@ class _Bridge extends State<Bridge> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/BridgePose.mp4')
+    _controller = VideoPlayerController.asset('assets/BridgePose.mp4')//video
       ..initialize().then((_) => setState(() {}));
   }
-
+//timer controls
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _Bridge extends State<Bridge> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI decoration
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _Bridge extends State<Bridge> {
             fit: BoxFit.cover,
           ),
         ),
+        //vid attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -100,6 +102,7 @@ class _Bridge extends State<Bridge> {
                   child: VideoPlayer(_controller),
                 ),
               SizedBox(height: 20),
+              //progressbar
               LinearProgressIndicator(
                 value: progress,
                 backgroundColor: Colors.white24,
@@ -107,11 +110,13 @@ class _Bridge extends State<Bridge> {
                 minHeight: 10,
               ),
               SizedBox(height: 20),
+              //seconds
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

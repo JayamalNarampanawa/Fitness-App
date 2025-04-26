@@ -1,3 +1,4 @@
+//importing package
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class BMIScreen extends StatefulWidget {
   @override
   _BMIScreenState createState() => _BMIScreenState();
 }
-
+//variables and fields declaration
 class _BMIScreenState extends State<BMIScreen> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -29,7 +30,7 @@ class _BMIScreenState extends State<BMIScreen> {
   void calculateBMI() {
     double height = double.tryParse(heightController.text) ?? 0;
     double weight = double.tryParse(weightController.text) ?? 0;
-
+//BMI calculations & results
     if (height > 0 && weight > 0) {
       double bmi = weight / ((height / 100) * (height / 100));
       setState(() {
@@ -43,7 +44,7 @@ class _BMIScreenState extends State<BMIScreen> {
       });
     }
   }
-
+//displaying BMI result
   String getBMICategory(double bmi) {
     if (bmi < 18.5) {
       return "Underweight";
@@ -55,7 +56,9 @@ class _BMIScreenState extends State<BMIScreen> {
       return "Obese";
     }
   }
+//UI decoration
 
+//App bar(title)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +66,7 @@ class _BMIScreenState extends State<BMIScreen> {
         title: Text('BMI Calculator', style: TextStyle(color: Colors.white)  ),
         backgroundColor: const Color.fromARGB(255, 2, 2, 2),
       ),
+      //bg
       body: Container(
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
@@ -71,6 +75,7 @@ class _BMIScreenState extends State<BMIScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //txt fields
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -99,6 +104,7 @@ class _BMIScreenState extends State<BMIScreen> {
                 ),
               ),
             ),
+            //cal btn
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: calculateBMI,
@@ -106,6 +112,7 @@ class _BMIScreenState extends State<BMIScreen> {
               style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 239, 239, 239)),
             ),
             SizedBox(height: 20),
+            //BMI results and messages
             Text(
               bmiResult,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),

@@ -1,3 +1,4 @@
+//importing 
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,11 +14,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+//UI Decorating
 class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //app bar
       appBar: AppBar(
         title: Text('About Us', style: TextStyle(color: Colors.white)  ),
         backgroundColor: Colors.black,
@@ -26,7 +28,7 @@ class AboutUsScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          
+          //bg
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -36,7 +38,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
           ),
-          
+          //title
           Container(
             color: Colors.black.withOpacity(0.6), 
             padding: EdgeInsets.all(16.0),
@@ -51,6 +53,7 @@ class AboutUsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
+                  //about
                   Text(
                     "Welcome to Max Burn Gym Application, your fitness companion on the go! 💪\n\n"
                     "We know staying fit isn’t always easy, so we created an app that makes workouts at home simple, fun, and effective.\n\n"

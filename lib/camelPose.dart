@@ -1,3 +1,4 @@
+//improting
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -7,6 +8,7 @@ class Camelpose extends StatefulWidget {
   _Camelpose createState() => _Camelpose();
 }
 
+//variable decleration
 class _Camelpose extends State<Camelpose> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -17,10 +19,10 @@ class _Camelpose extends State<Camelpose> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/CamelPose.mp4')
+    _controller = VideoPlayerController.asset('assets/CamelPose.mp4')//video
       ..initialize().then((_) => setState(() {}));
   }
-
+//controlling tmer
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +78,11 @@ class _Camelpose extends State<Camelpose> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI decoration
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg image
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +91,7 @@ class _Camelpose extends State<Camelpose> {
             fit: BoxFit.cover,
           ),
         ),
+        //video attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -100,6 +103,8 @@ class _Camelpose extends State<Camelpose> {
                   child: VideoPlayer(_controller),
                 ),
               SizedBox(height: 20),
+
+              //progress indicator
               LinearProgressIndicator(
                 value: progress,
                 backgroundColor: Colors.white24,
@@ -107,11 +112,13 @@ class _Camelpose extends State<Camelpose> {
                 minHeight: 10,
               ),
               SizedBox(height: 20),
+              //seconds
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+             //start,resume,pause,stop
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
