@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(WeightGainMealPlanApp());
+import 'dashboard.dart';
+import 'homeschedule.dart';
+import 'settings.dart';
+import 'meal.dart';
 
 class WeightGainMealPlanApp extends StatelessWidget {
   @override
@@ -14,7 +16,35 @@ class WeightGainMealPlanApp extends StatelessWidget {
   }
 }
 
-class WeightGainMealPlanScreen extends StatelessWidget {
+class WeightGainMealPlanScreen extends StatefulWidget {
+  @override
+  _WeightGainMealPlanScreenState createState() => _WeightGainMealPlanScreenState();
+}
+
+class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
+  int _currentIndex = 2;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeWorkoutScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
@@ -26,34 +56,34 @@ class WeightGainMealPlanScreen extends StatelessWidget {
       "🍚 1.5 cup rice + 1.5 cup chicken curry + 1 chopped salad + 1 banana"
     ],
     [
-      "🥚 2 eggs scrambled + 2 toast + peanut butter",
-      "🥗 1 cup cooked vegetables + 1 cup rice + chicken or fish",
-      "🥔 1 potato + 2 boiled eggs + 1 chopped salad"
+      "�헊 2 eggs scrambled + 2 toast + peanut butter",
+      "🦧 1 cup cooked vegetables + 1 cup rice + chicken or fish",
+      "🧄 1 potato + 2 boiled eggs + 1 chopped salad"
     ],
     [
       "🍌 Peanut butter + banana smoothie + toast",
-      "🥙 1 cup curry + 1.5 cup rice + salad + fruit",
+      "🧉 1 cup curry + 1.5 cup rice + salad + fruit",
       "🍝 Pasta + veggies + chicken or tuna + yogurt"
     ],
     [
-      "🥣 1 cup oats + milk + honey + nuts",
+      "🧃 1 cup oats + milk + honey + nuts",
       "🍗 Chicken stir fry + noodles + veggies",
       "🍲 2 cup pumpkin soup + 1 sandwich"
     ],
     [
       "🍞 2 bread slices + 1 egg + peanut butter",
       "🍛 Lentil curry + rice + spinach + egg",
-      "🥩 1 grilled meat portion + rice + salad"
+      "🧈 1 grilled meat portion + rice + salad"
     ],
     [
-      "🥚 2 egg omelette + toast + avocado",
+      "�헊 2 egg omelette + toast + avocado",
       "🍝 Whole wheat pasta + grilled vegetables + tuna",
-      "🥔 Baked potato + beans + salad"
+      "🧄 Baked potato + beans + salad"
     ],
     [
       "🍳 Egg + bread + milk",
       "🍗 Grilled chicken + sweet potato + greens",
-      "🥗 Salad + lentils + soup + yogurt"
+      "🦧 Salad + lentils + soup + yogurt"
     ],
   ];
 
@@ -63,37 +93,56 @@ class WeightGainMealPlanScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Opacity(
               opacity: 0.2,
               child: Image.asset(
-                'assets/home.jpeg', // Use your actual background image
+                'assets/home.jpeg',
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SafeArea(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
+                // Updated Profile Section
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                         Text(
+                              "Jayamal Narampanawa",
+                              style: TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            SizedBox(height: 20),
+                         Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Weight loss meal plan",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                
+                        ],
                       ),
-                      Text(
-                        "Weight gain meal plan",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage('assets/j.jpg'),
                       ),
                     ],
                   ),
                 ),
-
-                // Table
+                SizedBox(height: 20),
+                // Meal Plan Table
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -108,7 +157,6 @@ class WeightGainMealPlanScreen extends StatelessWidget {
                           3: FixedColumnWidth(200),
                         },
                         children: [
-                          // Header row
                           TableRow(
                             decoration: BoxDecoration(color: Colors.grey[800]),
                             children: [
@@ -118,7 +166,6 @@ class WeightGainMealPlanScreen extends StatelessWidget {
                               tableCell('Dinner', isHeader: true),
                             ],
                           ),
-                          // Data rows
                           for (int i = 0; i < days.length; i++)
                             TableRow(
                               decoration: BoxDecoration(
@@ -142,14 +189,17 @@ class WeightGainMealPlanScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black87,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Home Workout"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );

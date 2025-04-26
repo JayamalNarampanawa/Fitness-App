@@ -98,7 +98,7 @@ class _MealScreenState extends State<MealScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => WeightLossMealPlanScreen()),
+                        MaterialPageRoute(builder: (context) => WeightLossMealPlanApp()),
                       );
                     },
                     child: MealOption(

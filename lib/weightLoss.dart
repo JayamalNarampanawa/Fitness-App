@@ -40,30 +40,55 @@ class WeightLossMealPlanScreen extends StatelessWidget {
             child: Opacity(
               opacity: 0.2,
               child: Image.asset(
-                'assets/home.jpeg', // Replace with your background
+                'assets/home.jpeg', // Make sure this image exists
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SafeArea(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
+                // Profile Row
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+                  child: Row(
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      // Name
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Jayamal Narampanawa",
+                              style: TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "Weight loss meal plan",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                      // Profile Picture
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage('assets/j.jpg'), // Use your uploaded profile image
                       ),
                     ],
                   ),
                 ),
+                
+                // Title
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Weight loss meal plan",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 10),
 
                 // Table
                 Expanded(
