@@ -1,3 +1,4 @@
+//importing packages and screens
 import 'package:fitness_app/Profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
@@ -34,7 +35,7 @@ class _MealScreenState extends State<MealScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB Navigation
     switch (index) {
       case 0:
         Navigator.push(
@@ -49,7 +50,7 @@ class _MealScreenState extends State<MealScreen> {
         );
         break;
       case 2:
-        // Already on this screen
+        
         break;
       case 3:
         Navigator.push(
@@ -64,7 +65,8 @@ class _MealScreenState extends State<MealScreen> {
   void _navigateToProfile() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
-
+//UI
+    //BG
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,12 +82,13 @@ class _MealScreenState extends State<MealScreen> {
               ),
             ),
           ),
+          //profile area
+            //name
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 children: [
-                  // Top row: name and avatar
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,6 +99,7 @@ class _MealScreenState extends State<MealScreen> {
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
+                      //profile icon
                       GestureDetector(
                         onTap: _navigateToProfile,
                         child: CircleAvatar(
@@ -114,6 +118,7 @@ class _MealScreenState extends State<MealScreen> {
                         MaterialPageRoute(builder: (context) => WeightLossMealPlanApp()),
                       );
                     },
+                    //weight loss
                     child: MealOption(
                       title: 'Weight loss meal plan',
                       icon: Icons.fitness_center,
@@ -128,6 +133,7 @@ class _MealScreenState extends State<MealScreen> {
                         MaterialPageRoute(builder: (context) => WeightGainMealPlanScreen()),
                       );
                     },
+                    //weight gain
                     child: MealOption(
                       title: 'Weight gain meal plan',
                       icon: Icons.accessibility,
@@ -142,6 +148,7 @@ class _MealScreenState extends State<MealScreen> {
                         MaterialPageRoute(builder: (context) => MaintenanceMealPlanApp()),
                       );
                     },
+                    //maintain
                     child: MealOption(
                       title: 'Body Maintain meal plan',
                       icon: Icons.monitor_heart,
@@ -173,7 +180,7 @@ class _MealScreenState extends State<MealScreen> {
     );
   }
 }
-
+//variable declaration
 class MealOption extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -184,7 +191,7 @@ class MealOption extends StatelessWidget {
     required this.icon,
     required this.imageAsset,
   });
-
+//image attributes
   @override
   Widget build(BuildContext context) {
     return Container(

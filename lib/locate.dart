@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
 
 class LocateUsScreen extends StatelessWidget {
   const LocateUsScreen({super.key});
-
+//address url
   final String googleMapsUrl =
       "https://www.google.com/maps/place/Max+Burn+Fitness+Center/@7.3104963,80.6335188,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae36725c0e6f63f:0x9b69711b2306c0dc!8m2!3d7.3104963!4d80.6360937!16s%2Fg%2F11hmz0mlgz?entry=ttu&g_ep=EgoyMDI1MDMxMi4wIKXMDSoASAFQAw%3D%3D";
-
+//launching googlemaps 
   Future<void> _openGoogleMaps() async {
     Uri url = Uri.parse(googleMapsUrl);
     if (await canLaunchUrl(url)) {
@@ -32,7 +32,7 @@ class LocateUsScreen extends StatelessWidget {
       throw 'Could not open the map.';
     }
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class LocateUsScreen extends StatelessWidget {
             ),
           ),
 
-       
+       //title
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
             child: Column(
@@ -71,7 +71,7 @@ class LocateUsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 30),
-
+            //text field title
                 Text(
                   'Visit Our Center',
                   style: GoogleFonts.montserrat(
@@ -90,6 +90,7 @@ class LocateUsScreen extends StatelessWidget {
                       color: Colors.grey[900],
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    //adress
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

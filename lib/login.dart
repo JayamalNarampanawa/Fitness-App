@@ -1,3 +1,4 @@
+//importing packages
 import 'package:fitness_app/frogotpw.dart';
 import 'package:flutter/material.dart';
 import 'register.dart';
@@ -25,7 +26,7 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-
+//variable declaration
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
   final TextEditingController _emailController = TextEditingController();
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _emailError;
   String? _passwordError;
 
+//checking whether email,password fields aren;t empty
   void _validateAndLogin() {
     setState(() {
       _emailError = _emailController.text.isEmpty ? "Email is required" : null;
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //Title
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -78,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10),
               _buildTextField("Password", isPassword: true, controller: _passwordController, errorText: _passwordError),
               const SizedBox(height: 10),
+              //check box
               Row(
                 children: [
                   Checkbox(

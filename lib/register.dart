@@ -1,3 +1,4 @@
+//importing packages and screens
 import 'package:fitness_app/termsconditions.dart';
 import 'package:flutter/material.dart';
 import 'login.dart'; 
@@ -58,7 +59,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
     }
   }
-
+//UI
+    //BG
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //Title
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
           child: Column(
@@ -83,6 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              //txt fields
               const SizedBox(height: 20),
               _buildTextField("First Name"),
               const SizedBox(height: 10),
@@ -146,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-
+              //SIGN UP Btton
               _buildButton("SIGN UP", onTap: _registerUser),
             ],
           ),
@@ -154,7 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
+//pw
   Widget _buildTextField(String hint, {bool isPassword = false}) {
     return TextField(
       obscureText: isPassword,
@@ -186,6 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
+        //gender drop down menue
         suffixIcon: PopupMenuButton<String>(
           color: Colors.black87,
           icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
@@ -195,6 +200,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               _genderController.text = value;
             });
           },
+          //drop down menue value for the textbox
           itemBuilder: (BuildContext context) {
             return ["Male", "Female", "Other"].map((String value) {
               return PopupMenuItem<String>(

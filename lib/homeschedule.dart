@@ -1,5 +1,7 @@
+//importing packages
 import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
+//importin screens
 import 'dashboard.dart';
 import 'meal.dart';
 import 'settings.dart';
@@ -31,7 +33,7 @@ class HomeWorkoutScreen extends StatefulWidget {
   @override
   State<HomeWorkoutScreen> createState() => _HomeWorkoutScreenState();
 }
-
+//workout categories
 class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
   final List<String> categories = [
     "Full Body",
@@ -49,7 +51,7 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB navigation
     switch (index) {
       case 0:
         Navigator.push(
@@ -71,7 +73,7 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
         break;
     }
   }
-
+//Workout Navigation
   void _navigateToWorkout(int index) {
     switch (index) {
       case 0:
@@ -97,14 +99,14 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
         break;
     }
   }
-
+//profile navigation
   void _navigateToEditProfile() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EditProfileScreen()),
     );
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,11 +121,11 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
               ),
             ),
           ),
+          //PROFILE AREA
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Top Row: Name and Profile
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                   child: Row(
@@ -149,7 +151,7 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
                     ],
                   ),
                 ),
-                // Centered Title
+                //  Title
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Center(

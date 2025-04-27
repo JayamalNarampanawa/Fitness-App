@@ -38,7 +38,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -53,14 +53,14 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
         break;
     }
   }
-
+//navigate to profile on profile pic ouch
   void _navigateToEditProfile() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EditProfileScreen()),
     );
   }
-
+//workout list
   final List<Map<String, String>> exercises = [
     {"name": "Jumping Jacks", "time": "30s"},
     {"name": "Wall Sit", "time": "30s"},
@@ -70,7 +70,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
     {"name": "Tricep Dips", "time": "30s"},
     {"name": "Plank", "time": "30s"},
   ];
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +82,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
               child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
+          //Profile Area
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -105,6 +106,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                     ],
                   ),
                 ),
+                //title
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -114,6 +116,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                     ),
                   ),
                 ),
+                //workout image
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -122,6 +125,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                     child: Image.asset('assets/fullbody.jpeg', height: 150, width: double.infinity, fit: BoxFit.cover),
                   ),
                 ),
+                //no. of exercises
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -148,6 +152,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                             color: Colors.grey[900],
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          //navigating to teh workout screens on user touch
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
                             title: Text(name, style: TextStyle(color: Colors.white)),
@@ -180,6 +185,7 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
           ),
         ],
       ),
+      //BNB attributes
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

@@ -1,3 +1,4 @@
+//importing
 import 'package:flutter/material.dart';
 import 'changepw.dart'; 
 import 'dart:math';
@@ -12,7 +13,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
-
+//variable declaration
   String? _emailError;
   String? _otpError;
   String? _sentOtp;
@@ -71,6 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //title
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: SingleChildScrollView(
@@ -84,6 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     color: Colors.white,
                   ),
                 ),
+                //email ext field
                 const SizedBox(height: 30),
                 TextField(
                   controller: _emailController,
@@ -100,6 +103,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                 ),
+                //button
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
@@ -119,6 +123,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 if (_otpSent) ...[
+                  //OTP text field
                   const SizedBox(height: 30),
                   TextField(
                     controller: _otpController,
@@ -136,6 +141,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                     ),
                   ),
+                  //verify btn
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,

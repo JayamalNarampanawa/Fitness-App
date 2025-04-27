@@ -1,5 +1,7 @@
+//import packasges
 import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
+//importing screens
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
@@ -16,7 +18,7 @@ class LegsScreen extends StatefulWidget {
 
 class _LegsScreenState extends State<LegsScreen> {
   int _currentIndex = 1;
-
+//workout list with time
   final List<Map<String, String>> exercises = [
     {'name': 'Classic Squat', 'time': '30s'},
     {'name': 'Jumping Lunges', 'time': '30s'},
@@ -29,13 +31,13 @@ class _LegsScreenState extends State<LegsScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB Navigation
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        // Current screen
+        
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -45,7 +47,7 @@ class _LegsScreenState extends State<LegsScreen> {
         break;
     }
   }
-
+//Workouts navighation
   void _navigateToExercise(String name) {
     switch (name) {
       case 'Classic Squat':
@@ -65,11 +67,11 @@ class _LegsScreenState extends State<LegsScreen> {
         break;
     }
   }
-
+//profile navigation
   void _navigateToProfile() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +83,7 @@ class _LegsScreenState extends State<LegsScreen> {
               child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
+          //profile area
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,6 +109,7 @@ class _LegsScreenState extends State<LegsScreen> {
                     ],
                   ),
                 ),
+                //title
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -115,6 +119,7 @@ class _LegsScreenState extends State<LegsScreen> {
                     ),
                   ),
                 ),
+                //workout image
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -128,6 +133,7 @@ class _LegsScreenState extends State<LegsScreen> {
                   ),
                 ),
                 SizedBox(height: 10),
+                //no. of exercies
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Align(
@@ -170,6 +176,7 @@ class _LegsScreenState extends State<LegsScreen> {
           ),
         ],
       ),
+      //BNB attributes
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

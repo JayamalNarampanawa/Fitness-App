@@ -1,3 +1,4 @@
+//importing screens and packages
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'homeschedule.dart';
@@ -28,7 +29,7 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB Navigaion
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -44,11 +45,11 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
         break;
     }
   }
-
+//days 
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
-
+//meals
   final List<List<String>> meals = [
     [
       "🍳 Greek yogurt with berries and honey",
@@ -86,7 +87,8 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
       "🥞 Veggie pancake + soup or salad"
     ],
   ];
-
+//UI
+  //BG
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,11 +99,12 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
             child: Opacity(
               opacity: 0.2,
               child: Image.asset(
-                'assets/home.jpeg', // Replace with your background image
+                'assets/home.jpeg', 
                 fit: BoxFit.cover,
               ),
             ),
           ),
+          //profile area
           SafeArea(
             child: Column(
               children: [
@@ -123,6 +126,7 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
                           ),
                         ],
                       ),
+                      //profile icon
                       CircleAvatar(
                         radius: 30,
                         backgroundImage: AssetImage('assets/j.jpg'),
@@ -130,6 +134,7 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
                     ],
                   ),
                 ),
+                //title
                 SizedBox(height: 30),
                 Text(
                   "Maintenance meal plan",
@@ -138,6 +143,7 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
                     color: Colors.white,
                   ),
                 ),
+                //table attrbutes
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -183,6 +189,7 @@ class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
           ),
         ],
       ),
+      //BNB Attributes
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

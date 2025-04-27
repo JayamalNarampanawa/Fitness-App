@@ -1,3 +1,4 @@
+
 import 'dart:io'; // Import File class
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -146,7 +147,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
     });
   }
-
+//UI
+  //bg
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,6 +190,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  //TXT FIELDS
                   const SizedBox(height: 20),
                   _buildTextField("Full Name", nameController),
                   _buildTextField("Email", emailController, isEmail: true),
@@ -195,6 +198,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   _buildWeightHeightField("Weight", weightController, "kg"),
                   _buildWeightHeightField("Height", heightController, "cm"),
                   const SizedBox(height: 20),
+                  //buton
                   ElevatedButton(
                     onPressed: _saveProfile,
                     style: ElevatedButton.styleFrom(
