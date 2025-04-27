@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+//importing 
 
 class Cobra extends StatefulWidget {
   @override
   _Cobra createState() => _Cobra();
 }
-
+//declaring variables
 class _Cobra extends State<Cobra> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -17,10 +18,10 @@ class _Cobra extends State<Cobra> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/Cobra.mp4')
+    _controller = VideoPlayerController.asset('assets/Cobra.mp4')//video
       ..initialize().then((_) => setState(() {}));
   }
-
+//video controlling with timer
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _Cobra extends State<Cobra> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _Cobra extends State<Cobra> {
             fit: BoxFit.cover,
           ),
         ),
+        //video attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -99,6 +101,7 @@ class _Cobra extends State<Cobra> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 ),
+                //progress bar
               SizedBox(height: 20),
               LinearProgressIndicator(
                 value: progress,
@@ -106,11 +109,13 @@ class _Cobra extends State<Cobra> {
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
                 minHeight: 10,
               ),
+              //seconds
               SizedBox(height: 20),
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
+              //user controls
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,4 @@
+//importing
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,21 +7,21 @@ class Crossoverlungues extends StatefulWidget {
   @override
   _Crossoverlungues createState() => _Crossoverlungues();
 }
-
+//variables
 class _Crossoverlungues extends State<Crossoverlungues> {
   late VideoPlayerController _controller;
   Timer? _timer;
   int _seconds = 30;
   bool _isRunning = false;
   bool _isPaused = false;
-
+//video
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/CrossOverLunge.mp4')
+    _controller = VideoPlayerController.asset('assets/CrossOverLunge.mp4')//video
       ..initialize().then((_) => setState(() {}));
   }
-
+//timer controller with vide
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _Crossoverlungues extends State<Crossoverlungues> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI decorating
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _Crossoverlungues extends State<Crossoverlungues> {
             fit: BoxFit.cover,
           ),
         ),
+        //video attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -100,18 +102,21 @@ class _Crossoverlungues extends State<Crossoverlungues> {
                   child: VideoPlayer(_controller),
                 ),
               SizedBox(height: 20),
+              //progress bar
               LinearProgressIndicator(
                 value: progress,
                 backgroundColor: Colors.white24,
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
                 minHeight: 10,
               ),
+              //seconds
               SizedBox(height: 20),
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controlls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

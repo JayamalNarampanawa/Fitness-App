@@ -1,5 +1,7 @@
+//importing packages
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+//screens
 import 'homeschedule.dart';
 import 'meal.dart';
 import 'settings.dart';
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fitness App UI Demo',
+      title: 'Max Burn Fitness',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -39,15 +41,15 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
 
-  // Assume current steps
+  // variables for steps 
   int currentSteps = 4790;
   final int stepGoal = 6000;
-
+//get the exact date
   String getFormattedDate() {
     DateTime now = DateTime.now();
     return DateFormat("dd MMM").format(now);
   }
-
+//BNB navigation
   void _onTabTapped(int index) {
     switch (index) {
       case 1:
@@ -70,19 +72,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
         break;
     }
   }
-
+//navigate to edit profile
   void _goToProfile() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const EditProfileScreen()),
     );
   }
-
+//step counter box
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     double stepProgress = currentSteps / stepGoal;
-
+//BNB
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -104,6 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
+      //BG
       body: Stack(
         children: [
           Container(

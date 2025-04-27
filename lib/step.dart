@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -28,13 +27,10 @@ class StepCounterScreen extends StatefulWidget {
 }
 
 class _StepCounterScreenState extends State<StepCounterScreen> {
-  int _todaySteps = 0;
-  int _startSteps = 0;
-  int _currentSteps = 0;
-  final int _stepGoal = 3000;
+  int _steps = 0;
+  final int _stepGoal = 6000;
   double _distance = 0.0;
   late Stream<StepCount> _stepCountStream;
-  Timer? _midnightTimer;
 
   final List<int> _weeklySteps = [1000, 2000, 1500, 3000, 2500, 4000, 5000];
 
@@ -42,13 +38,6 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
   void initState() {
     super.initState();
     _initPlatformState();
-    _scheduleMidnightReset();
-  }
-
-  @override
-  void dispose() {
-    _midnightTimer?.cancel();
-    super.dispose();
   }
 
   Future<void> _initPlatformState() async {
@@ -68,13 +57,9 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen(
       (StepCount event) {
-        if (_startSteps == 0) {
-          _startSteps = event.steps; // First time opening app today
-        }
         setState(() {
-          _currentSteps = event.steps;
-          _todaySteps = _currentSteps - _startSteps;
-          _distance = _todaySteps * 0.0007;
+          _steps = event.steps;
+          _distance = _steps * 0.0007; // Approx 0.7m per step
         });
       },
       onError: (error) {
@@ -84,27 +69,8 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     );
   }
 
-  void _scheduleMidnightReset() {
-    final now = DateTime.now();
-    final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    final durationUntilMidnight = tomorrow.difference(now);
-
-    _midnightTimer = Timer(durationUntilMidnight, () {
-      _resetStepsAtMidnight();
-    });
-  }
-
-  void _resetStepsAtMidnight() {
-    setState(() {
-      _startSteps = _currentSteps; // Set new base for next day
-      _todaySteps = 0;
-      _distance = 0.0;
-    });
-    _scheduleMidnightReset(); // Reschedule for next midnight
-  }
-
   double getProgress() {
-    return (_todaySteps / _stepGoal).clamp(0.0, 1.0);
+    return (_steps / _stepGoal).clamp(0.0, 1.0);
   }
 
   @override
@@ -159,7 +125,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
-                Text("$_todaySteps",
+                Text("$_steps",
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -211,7 +177,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "$_todaySteps",
+                  "$_steps",
                   style: const TextStyle(
                       fontSize: 40,
                       color: Colors.white,

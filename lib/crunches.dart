@@ -1,3 +1,4 @@
+//importing
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,7 +7,7 @@ class crucnhesScreen extends StatefulWidget {
   @override
   _crucnhesScreenState createState() => _crucnhesScreenState();
 }
-
+//variable declartion
 class _crucnhesScreenState extends State<crucnhesScreen> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -17,10 +18,10 @@ class _crucnhesScreenState extends State<crucnhesScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/Crunch.mp4')
+    _controller = VideoPlayerController.asset('assets/Crunch.mp4')//video
       ..initialize().then((_) => setState(() {}));
   }
-
+//timer control with video
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _crucnhesScreenState extends State<crucnhesScreen> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI decoraion
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _crucnhesScreenState extends State<crucnhesScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //video attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -99,6 +101,7 @@ class _crucnhesScreenState extends State<crucnhesScreen> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 ),
+                //progress bar
               SizedBox(height: 20),
               LinearProgressIndicator(
                 value: progress,
@@ -106,12 +109,14 @@ class _crucnhesScreenState extends State<crucnhesScreen> {
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
                 minHeight: 10,
               ),
+              //seconds
               SizedBox(height: 20),
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

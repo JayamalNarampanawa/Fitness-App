@@ -1,3 +1,4 @@
+//importing packages
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+//UI
 class ContactUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class ContactUsScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/home.jpeg'),
+                image: AssetImage('assets/home.jpeg'),//bg
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,6 +54,7 @@ class ContactUsScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
+                //contact deails
                 Text(
                   'Contact us via :-',
                   style: TextStyle(color: Colors.white, fontSize: 16),
@@ -66,6 +68,7 @@ class ContactUsScreen extends StatelessWidget {
                   'Find Us On Social Media',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
+                //social media icons and links
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
