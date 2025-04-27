@@ -1,3 +1,4 @@
+import 'package:fitness_app/Profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
@@ -5,6 +6,7 @@ import 'homeschedule.dart';
 import 'weightLoss.dart';
 import 'weightGain.dart';
 import 'maintain.dart';
+
 
 void main() => runApp(MealApp());
 
@@ -58,6 +60,11 @@ class _MealScreenState extends State<MealScreen> {
     }
   }
 
+  // Navigate to EditProfile screen when profile icon or name is tapped
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,12 +89,18 @@ class _MealScreenState extends State<MealScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Jayamal Narampanawa',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          'Jayamal Narampanawa',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),

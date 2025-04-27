@@ -1,3 +1,4 @@
+import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'homeschedule.dart';
@@ -56,7 +57,7 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
       "🍚 1.5 cup rice + 1.5 cup chicken curry + 1 chopped salad + 1 banana"
     ],
     [
-      "�헊 2 eggs scrambled + 2 toast + peanut butter",
+      "🍳 2 eggs scrambled + 2 toast + peanut butter",
       "🦧 1 cup cooked vegetables + 1 cup rice + chicken or fish",
       "🧄 1 potato + 2 boiled eggs + 1 chopped salad"
     ],
@@ -76,7 +77,7 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
       "🧈 1 grilled meat portion + rice + salad"
     ],
     [
-      "�헊 2 egg omelette + toast + avocado",
+      "🍳 2 egg omelette + toast + avocado",
       "🍝 Whole wheat pasta + grilled vegetables + tuna",
       "🧄 Baked potato + beans + salad"
     ],
@@ -86,6 +87,11 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
       "🦧 Salad + lentils + soup + yogurt"
     ],
   ];
+
+  // Navigate to EditProfile screen
+  void _navigateToProfile(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,42 +112,51 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Updated Profile Section
+                // Profile Section
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                         Text(
+                      // Name (Wrapped with GestureDetector)
+                      GestureDetector(
+                        onTap: () => _navigateToProfile(context),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
                               "Jayamal Narampanawa",
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
                             SizedBox(height: 20),
-                         Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    "Weight loss meal plan",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                
-                        ],
+                          ],
+                        ),
                       ),
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      // Profile Picture (Wrapped with GestureDetector)
+                      GestureDetector(
+                        onTap: () => _navigateToProfile(context),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),
                 ),
+
+                // Title: Centered on top of the table
                 SizedBox(height: 20),
+                Center(
+                  child: Text(
+                    "Weight Gain Meal Plan",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
                 // Meal Plan Table
                 Expanded(
                   child: SingleChildScrollView(

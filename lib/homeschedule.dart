@@ -1,3 +1,4 @@
+import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'meal.dart';
@@ -9,6 +10,7 @@ import 'abs.dart';
 import 'legs.dart';
 import 'back.dart';
 import 'yoga.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -96,6 +98,13 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
     }
   }
 
+  void _navigateToEditProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditProfileScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,12 +129,22 @@ class _HomeWorkoutScreenState extends State<HomeWorkoutScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToEditProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToEditProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),

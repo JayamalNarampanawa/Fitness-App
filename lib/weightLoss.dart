@@ -1,4 +1,9 @@
+import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
+import 'homeschedule.dart';
+import 'settings.dart';
+import 'meal.dart';
 
 void main() => runApp(WeightLossMealPlanApp());
 
@@ -14,7 +19,36 @@ class WeightLossMealPlanApp extends StatelessWidget {
   }
 }
 
-class WeightLossMealPlanScreen extends StatelessWidget {
+class WeightLossMealPlanScreen extends StatefulWidget {
+  @override
+  _WeightLossMealPlanScreenState createState() =>
+      _WeightLossMealPlanScreenState();
+}
+
+class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
+  int _currentIndex = 2;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeWorkoutScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
@@ -28,6 +62,11 @@ class WeightLossMealPlanScreen extends StatelessWidget {
     ["🍎 Apple slices + oatmeal", "🥗 Chicken breast salad", "🍠 Boiled sweet potato"],
     ["🥚 Boiled eggs + toast", "🥗 Grilled fish + greens", "🍵 Clear soup"],
   ];
+
+  // Navigate to EditProfile screen
+  void _navigateToProfile(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +88,15 @@ class WeightLossMealPlanScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Profile Row
+                // Updated Profile Section
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Name
-                      Expanded(
+                      // Name (Wrapped with GestureDetector)
+                      GestureDetector(
+                        onTap: () => _navigateToProfile(context),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -63,34 +104,36 @@ class WeightLossMealPlanScreen extends StatelessWidget {
                               "Jayamal Narampanawa",
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
-                      // Profile Picture
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/j.jpg'), // Use your uploaded profile image
+                      // Profile Picture (Wrapped with GestureDetector)
+                      GestureDetector(
+                        onTap: () => _navigateToProfile(context),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                
-                // Title
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                // Title: Centered on top of the table
+                SizedBox(height: 20),
+                Center(
                   child: Text(
-                    "Weight loss meal plan",
+                    "Weight Loss Meal Plan",
                     style: TextStyle(
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
 
-                SizedBox(height: 10),
-
-                // Table
+                // Meal Plan Table
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -139,14 +182,17 @@ class WeightLossMealPlanScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black87,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Home Workout"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );

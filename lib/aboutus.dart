@@ -58,7 +58,7 @@ class AboutUsScreen extends StatelessWidget {
                     "Welcome to Max Burn Gym Application, your fitness companion on the go! 💪\n\n"
                     "We know staying fit isn’t always easy, so we created an app that makes workouts at home simple, fun, and effective.\n\n"
                     "Whether you’re just starting or a seasoned pro, Max Burn helps you track progress, follow personalized workout plans, and stay motivated.\n\n"
-                    "Our group 5 of NIBM Kandy and tech experts built this app to make staying active easier for everyone. With the right tools and support, reaching your fitness goals is closer than ever!\n\n"
+                    "Our members of group 'NIBM Kandy DSE 24.1F grp 05'  built this app to make staying active easier for everyone. With the right tools and support, reaching your fitness goals is closer than ever!\n\n"
                     "Join us and let’s train smarter, stay strong, and achieve more—together!",
                     style: TextStyle(
                       color: Colors.white,

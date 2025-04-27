@@ -1,15 +1,13 @@
-//importing packages
-import 'package:fitness_app/tricepPushUps.dart';
+// IMPORTING PACKAGES
 import 'package:flutter/material.dart';
-
-//importing screens
+import 'package:fitness_app/tricepPushUps.dart';
+import 'package:fitness_app/inchworm.dart';
+import 'package:fitness_app/plank.dart';
+import 'package:fitness_app/BandBicepCurls.dart';
+import 'package:fitness_app/plankWalk.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
-import 'inchworm.dart';
-import 'plank.dart';
-import 'BandBicepCurls.dart';
-import 'plankWalk.dart';
 import 'profile.dart';
 
 class ArmsScreen extends StatefulWidget {
@@ -20,8 +18,7 @@ class ArmsScreen extends StatefulWidget {
 class _ArmsScreenState extends State<ArmsScreen> {
   int _currentIndex = 1;
 
-
-//exercise list
+// Exercise list
   final List<Map<String, String>> exercises = [
     {'name': 'Tricep Dips', 'time': '30s'},
     {'name': 'Inchworm', 'time': '30s'},
@@ -30,16 +27,18 @@ class _ArmsScreenState extends State<ArmsScreen> {
     {'name': 'Plank Walk', 'time': '30s'},
   ];
 
+// Bottom navigation tap handling
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-//nav of BNB
+
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
+        // Stay here (Workout screen)
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -49,7 +48,8 @@ class _ArmsScreenState extends State<ArmsScreen> {
         break;
     }
   }
-//nav of workouts
+
+// Navigate to workout screens
   void _navigateToExercise(String name) {
     switch (name) {
       case 'Tricep Dips':
@@ -70,12 +70,12 @@ class _ArmsScreenState extends State<ArmsScreen> {
     }
   }
 
+// Navigate to profile screen
   void _navigateToProfile() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));//nav to edit profile
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
 
-//UI decoration
-
+// UI decoration
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,18 +84,14 @@ class _ArmsScreenState extends State<ArmsScreen> {
           Positioned.fill(
             child: Opacity(
               opacity: 0.9,
-              child: Image.asset(
-                'assets/home.jpeg',
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
-
-          //profile area
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Profile section
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                   child: Row(
@@ -118,7 +114,7 @@ class _ArmsScreenState extends State<ArmsScreen> {
                   ),
                 ),
 
-                //heading
+                // Heading
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -128,6 +124,8 @@ class _ArmsScreenState extends State<ArmsScreen> {
                     ),
                   ),
                 ),
+
+                // Workout main image
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -141,8 +139,7 @@ class _ArmsScreenState extends State<ArmsScreen> {
                   ),
                 ),
 
-                //no.of exercises
-
+                // Number of workouts
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -154,6 +151,8 @@ class _ArmsScreenState extends State<ArmsScreen> {
                     ),
                   ),
                 ),
+
+                // Workout list
                 SizedBox(height: 5),
                 Expanded(
                   child: ListView.builder(
@@ -168,12 +167,15 @@ class _ArmsScreenState extends State<ArmsScreen> {
                           ),
                           child: ListTile(
                             leading: Icon(Icons.fitness_center, color: Colors.white),
-                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
-                            trailing: Text(
-                              exercises[index]["time"]!,
+                            title: Text(
+                              exercises[index]['name']!,
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () => _navigateToExercise(exercises[index]["name"]!.trim()),
+                            trailing: Text(
+                              exercises[index]['time']!,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () => _navigateToExercise(exercises[index]['name']!.trim()),
                           ),
                         ),
                       );
@@ -185,7 +187,8 @@ class _ArmsScreenState extends State<ArmsScreen> {
           ),
         ],
       ),
-      //BNB
+
+      // Bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

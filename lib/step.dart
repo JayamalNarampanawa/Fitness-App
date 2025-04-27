@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
-  runApp(StepCounterApp());
+  runApp(const StepCounterApp());
 }
 
 class StepCounterApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class StepCounterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StepCounterScreen(),
+      home: const StepCounterScreen(),
     );
   }
 }
@@ -23,43 +24,87 @@ class StepCounterScreen extends StatefulWidget {
   const StepCounterScreen({super.key});
 
   @override
-  _StepCounterScreenState createState() => _StepCounterScreenState();
+  State<StepCounterScreen> createState() => _StepCounterScreenState();
 }
 
 class _StepCounterScreenState extends State<StepCounterScreen> {
-  int _steps = 0;
-  final int _stepGoal = 10000;
+  int _todaySteps = 0;
+  int _startSteps = 0;
+  int _currentSteps = 0;
+  final int _stepGoal = 3000;
   double _distance = 0.0;
+  late Stream<StepCount> _stepCountStream;
+  Timer? _midnightTimer;
+
   final List<int> _weeklySteps = [1000, 2000, 1500, 3000, 2500, 4000, 5000];
 
   @override
   void initState() {
     super.initState();
-    _requestPermissions();
+    _initPlatformState();
+    _scheduleMidnightReset();
   }
 
-  Future<void> _requestPermissions() async {
-    if (await Permission.activityRecognition.request().isGranted) {
-      _initPedometer();
+  @override
+  void dispose() {
+    _midnightTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _initPlatformState() async {
+    PermissionStatus permission = await Permission.activityRecognition.status;
+    if (!permission.isGranted) {
+      permission = await Permission.activityRecognition.request();
+    }
+
+    if (permission.isGranted) {
+      _startListening();
+    } else {
+      print('Permission denied');
     }
   }
 
-  void _initPedometer() {
-    Pedometer.stepCountStream.listen(
+  void _startListening() {
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(
       (StepCount event) {
+        if (_startSteps == 0) {
+          _startSteps = event.steps; // First time opening app today
+        }
         setState(() {
-          _steps = event.steps;
-          _distance = _steps * 0.0007;
+          _currentSteps = event.steps;
+          _todaySteps = _currentSteps - _startSteps;
+          _distance = _todaySteps * 0.0007;
         });
       },
       onError: (error) {
-        print("Pedometer Error: $error");
+        print('Pedometer Error: $error');
       },
+      cancelOnError: true,
     );
   }
 
+  void _scheduleMidnightReset() {
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    final durationUntilMidnight = tomorrow.difference(now);
+
+    _midnightTimer = Timer(durationUntilMidnight, () {
+      _resetStepsAtMidnight();
+    });
+  }
+
+  void _resetStepsAtMidnight() {
+    setState(() {
+      _startSteps = _currentSteps; // Set new base for next day
+      _todaySteps = 0;
+      _distance = 0.0;
+    });
+    _scheduleMidnightReset(); // Reschedule for next midnight
+  }
+
   double getProgress() {
-    return (_steps / _stepGoal).clamp(0.0, 1.0);
+    return (_todaySteps / _stepGoal).clamp(0.0, 1.0);
   }
 
   @override
@@ -67,20 +112,13 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/home.jpeg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          _backgroundImage(),
           Container(color: Colors.black.withOpacity(0.6)),
           Column(
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               _buildStepGraph(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildStepCounter(),
             ],
           ),
@@ -89,12 +127,23 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     );
   }
 
+  Widget _backgroundImage() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/home.jpeg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
   Widget _buildStepGraph() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Container(
-        padding: EdgeInsets.all(30),
-        margin: EdgeInsets.fromLTRB(10, 130, 10, 20),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.fromLTRB(10, 130, 10, 20),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.1),
           borderRadius: BorderRadius.circular(20),
@@ -105,11 +154,19 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Steps", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                Text(_steps.toString(), style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text("Weekly Steps",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                Text("$_todaySteps",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SizedBox(
               height: 100,
               child: BarChart(
@@ -143,7 +200,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(20),
@@ -153,26 +210,45 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("$_steps", style: TextStyle(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold)),
-                SizedBox(width: 10),
-                Text("steps", style: TextStyle(color: Colors.white70, fontSize: 20)),
+                Text(
+                  "$_todaySteps",
+                  style: const TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 10),
+                const Text(
+                  "steps",
+                  style: TextStyle(color: Colors.white70, fontSize: 20),
+                ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               height: 10,
               width: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade600),
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
                 widthFactor: getProgress(),
                 child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.green),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text("${_distance.toStringAsFixed(2)} km", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            Text(
+              "${_distance.toStringAsFixed(2)} km",
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

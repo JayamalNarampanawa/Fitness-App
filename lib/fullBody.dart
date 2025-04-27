@@ -1,3 +1,4 @@
+import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
@@ -53,6 +54,13 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
     }
   }
 
+  void _navigateToEditProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditProfileScreen()),
+    );
+  }
+
   final List<Map<String, String>> exercises = [
     {"name": "Jumping Jacks", "time": "30s"},
     {"name": "Wall Sit", "time": "30s"},
@@ -83,11 +91,17 @@ class _FullBodyWorkoutScreenState extends State<FullBodyWorkoutScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToEditProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(backgroundImage: AssetImage('assets/j.jpg')),
+                      GestureDetector(
+                        onTap: _navigateToEditProfile,
+                        child: CircleAvatar(backgroundImage: AssetImage('assets/j.jpg')),
+                      ),
                     ],
                   ),
                 ),

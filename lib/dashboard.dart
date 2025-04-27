@@ -7,6 +7,7 @@ import 'step.dart';
 import 'bmi.dart';
 import 'sleep.dart';
 import 'water.dart';
+import 'profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,14 +39,15 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
 
-  // Get current date
+  // Assume current steps
+  int currentSteps = 4790;
+  final int stepGoal = 6000;
+
   String getFormattedDate() {
     DateTime now = DateTime.now();
-    // Format date as "Today, 21 Feb"
     return DateFormat("dd MMM").format(now);
   }
 
-  //navigation to my othe screen on user's touches
   void _onTabTapped(int index) {
     switch (index) {
       case 1:
@@ -69,21 +71,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
+  void _goToProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    double stepProgress = currentSteps / stepGoal;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
-          "Dashboard",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      //bottom navigatin bar and icons
+      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
@@ -94,23 +95,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
         unselectedItemColor: Colors.white,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite), label: "Dashboard"
-            ),
+              icon: Icon(Icons.favorite), label: "Dashboard"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Home Workout',
-          ),
+              icon: Icon(Icons.fitness_center), label: 'Home Workout'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: 'Diet',
-          ),
+              icon: Icon(Icons.restaurant_menu), label: 'Diet'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
+              icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
-      //designing th UI
       body: Stack(
         children: [
           Container(
@@ -118,36 +111,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
             width: size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/home.jpeg"),//BG image
+                image: AssetImage("assets/home.jpeg"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 80, left: 16, right: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Hello Jayamal!\n${getFormattedDate()}", // updated to show the current date
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                const SizedBox(height: 80),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: _goToProfile,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Hello Jayamal!",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              const Text(
+                                "Today, ",
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                getFormattedDate(),
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      const CircleAvatar(
+                    ),
+                    GestureDetector(
+                      onTap: _goToProfile,
+                      child: const CircleAvatar(
                         radius: 25,
-                        backgroundImage: AssetImage("assets/j.jpg"),//profile image
+                        backgroundImage: AssetImage("assets/j.jpg"),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 60),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -159,41 +182,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.teal.withOpacity(0.8),
+                      color: Colors.teal.withOpacity(0.85),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Text(
-                              "Today, 21 Feb",//date 
-                              style: TextStyle(
+                              "$currentSteps steps",
+                              style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            //stepcounter 
-                            //text
-                            SizedBox(height: 8),
-                            Text(
-                              "4 790 steps",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: Image.asset("assets/shoe.png"),
                             ),
                           ],
                         ),
-                        //stepcounter box
-                        SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: Image.asset("assets/shoe.png"),
+                        const SizedBox(height: 12),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: LinearProgressIndicator(
+                            value: stepProgress,
+                            backgroundColor: Colors.white24,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreenAccent),
+                            minHeight: 8,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "${((stepProgress) * 100).toStringAsFixed(1)}% of 6000 steps",
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
                         ),
                       ],
                     ),
@@ -218,7 +247,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           color: Colors.blueGrey.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        //water tracker
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
@@ -252,13 +280,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       },
                       child: Container(
                         width: size.width * 0.4,
-                        padding: const EdgeInsets.all(16),
                         height: 160,
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        //sleep timer
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -294,7 +321,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       color: Colors.green.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    //sleep timer
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

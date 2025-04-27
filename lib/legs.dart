@@ -1,3 +1,4 @@
+import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
@@ -46,23 +47,27 @@ class _LegsScreenState extends State<LegsScreen> {
   }
 
   void _navigateToExercise(String name) {
-    switch (name.toLowerCase()) {
-      case 'classic squat':
+    switch (name) {
+      case 'Classic Squat':
         Navigator.push(context, MaterialPageRoute(builder: (context) => SquatScreen()));
         break;
-      case 'Jumping lunges':
+      case 'Jumping Lunges':
         Navigator.push(context, MaterialPageRoute(builder: (context) => Lungues()));
         break;
       case 'Jumping Squats':
         Navigator.push(context, MaterialPageRoute(builder: (context) => Squatjack()));
         break;
-      case 'sumo squats':
+      case 'Sumo Squats':
         Navigator.push(context, MaterialPageRoute(builder: (context) => Sumosquat()));
         break;
-      case 'Reverse Lunges lunges':
+      case 'Reverse Lunges':
         Navigator.push(context, MaterialPageRoute(builder: (context) => Crossoverlungues()));
         break;
     }
+  }
+
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
 
   @override
@@ -85,12 +90,18 @@ class _LegsScreenState extends State<LegsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),

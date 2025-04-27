@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'waterSchedule.dart'; // <-- Make sure this file exists in your project
+import 'waterSchedule.dart'; // Make sure this file exists in your project
 
 void main() {
   runApp(WaterTrackerApp());
@@ -145,35 +145,11 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  color: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _bottomNavItem(Icons.favorite, "DASHBOARD"),
-                      _bottomNavItem(Icons.fitness_center, "Home Workouts"),
-                      _bottomNavItem(Icons.apple, "Diet"),
-                      _bottomNavItem(Icons.settings, "Settings"),
-                    ],
-                  ),
-                ),
               ],
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _bottomNavItem(IconData icon, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: Colors.white),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(color: Colors.white, fontSize: 10)),
-      ],
     );
   }
 }

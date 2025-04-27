@@ -1,4 +1,9 @@
+import 'dart:io'; // Import File class
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart'; // Permission handler
+import 'package:flutter/services.dart';
+
 import 'settings.dart'; // Import the Settings screen
 
 void main() {
@@ -31,6 +36,101 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  XFile? _profileImage; // Store the selected image
+
+  @override
+  void initState() {
+    super.initState();
+    // Initial permission request
+    _requestPermissions();
+  }
+
+  // Request permissions for camera and gallery
+  Future<void> _requestPermissions() async {
+    final cameraStatus = await Permission.camera.request();
+    final mediaStatus = await Permission.photos.request();
+
+    if (cameraStatus.isGranted && mediaStatus.isGranted) {
+      // Show the dialog if permissions are granted
+      _showImageSourceDialog();
+    } else {
+      if (cameraStatus.isDenied || mediaStatus.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Permission denied. Please grant permission to proceed.")),
+        );
+      }
+      openAppSettings(); // Opens settings if permissions are denied
+    }
+  }
+
+  // Show dialog to choose image source (Gallery or Camera)
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Choose Profile Picture"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Take a New Picture"),
+                onTap: () {
+                  _pickImageFromCamera();
+                  Navigator.pop(context); // Close dialog
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_album),
+                title: const Text("Choose from Gallery"),
+                onTap: () {
+                  _pickImageFromGallery();
+                  Navigator.pop(context); // Close dialog
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete),
+                title: const Text("Remove Profile Picture"),
+                onTap: () {
+                  setState(() {
+                    _profileImage = null; // Remove profile picture
+                  });
+                  Navigator.pop(context); // Close dialog
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Pick image from camera
+  Future<void> _pickImageFromCamera() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = pickedFile;
+      });
+    }
+  }
+
+  // Pick image from gallery
+  Future<void> _pickImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = pickedFile;
+      });
+    }
+  }
+
+  // Save Profile and navigate
   void _saveProfile() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -70,9 +170,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 60),
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage("assets/j.jpg"),
+                  GestureDetector(
+                    onTap: _showImageSourceDialog, // Show dialog on tapping profile picture
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: _profileImage == null
+                          ? const AssetImage("assets/j.jpg") as ImageProvider
+                          : FileImage(File(_profileImage!.path)), // Corrected image display
+                    ),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -110,6 +215,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  // Text field widget for general inputs
   Widget _buildTextField(String label, TextEditingController controller, {bool isEmail = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -138,6 +244,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  // Weight and Height input field widget
   Widget _buildWeightHeightField(String label, TextEditingController controller, String unit) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),

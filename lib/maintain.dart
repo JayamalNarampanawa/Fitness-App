@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(MaintenanceMealPlanApp());
+import 'dashboard.dart';
+import 'homeschedule.dart';
+import 'settings.dart';
+import 'meal.dart';
 
 class MaintenanceMealPlanApp extends StatelessWidget {
   @override
@@ -14,7 +16,35 @@ class MaintenanceMealPlanApp extends StatelessWidget {
   }
 }
 
-class MaintenanceMealPlanScreen extends StatelessWidget {
+class MaintenanceMealPlanScreen extends StatefulWidget {
+  @override
+  _MaintenanceMealPlanScreenState createState() => _MaintenanceMealPlanScreenState();
+}
+
+class _MaintenanceMealPlanScreenState extends State<MaintenanceMealPlanScreen> {
+  int _currentIndex = 2;
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeWorkoutScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+        break;
+    }
+  }
+
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
@@ -63,7 +93,6 @@ class MaintenanceMealPlanScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Opacity(
               opacity: 0.2,
@@ -76,24 +105,39 @@ class MaintenanceMealPlanScreen extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                // Header
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Jayamal Narampanawa",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Maintenance meal plan",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage('assets/j.jpg'),
                       ),
                     ],
                   ),
                 ),
-
-                // Table
+                SizedBox(height: 30),
+                Text(
+                  "Maintenance meal plan",
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -108,7 +152,6 @@ class MaintenanceMealPlanScreen extends StatelessWidget {
                           3: FixedColumnWidth(200),
                         },
                         children: [
-                          // Table Header
                           TableRow(
                             decoration: BoxDecoration(color: Colors.grey[800]),
                             children: [
@@ -118,7 +161,6 @@ class MaintenanceMealPlanScreen extends StatelessWidget {
                               tableCell('Dinner', isHeader: true),
                             ],
                           ),
-                          // Data Rows
                           for (int i = 0; i < days.length; i++)
                             TableRow(
                               decoration: BoxDecoration(
@@ -142,14 +184,17 @@ class MaintenanceMealPlanScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black87,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Dashboard"),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: "Home Workout"),
+          BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: "Diet"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );

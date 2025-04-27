@@ -1,7 +1,17 @@
+import 'package:fitness_app/Profile.dart';
+import 'package:fitness_app/bridge.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
+
+// Import the pose screens
+import 'easyPose.dart';
+import 'hlf.dart';
+import 'camelPose.dart';
+import 'sfBend.dart';
+import 'cobra.dart';
+import 'childPose.dart';
 
 class YogaScreen extends StatefulWidget {
   @override
@@ -11,14 +21,14 @@ class YogaScreen extends StatefulWidget {
 class _YogaScreenState extends State<YogaScreen> {
   int _currentIndex = 1;
 
-  final List<Map<String, String>> exercises = [
-    {'name': 'Easy Pose', 'time': '30s'},
-    {'name': 'Half Lord of the Fishes', 'time': '30s'},
-    {'name': 'Camel Pose', 'time': '30s'},
-    {'name': 'Bridge Pose', 'time': '30s'},
-    {'name': 'Standing Forward Bend', 'time': '30s'},
-    {'name': 'Cobra Stretch', 'time': '30s'},
-    {'name': 'Child’s Pose', 'time': '30s'},
+  final List<Map<String, dynamic>> exercises = [
+    {'name': 'Easy Pose', 'time': '30s', 'screen': Easypose()},
+    {'name': 'Half Lord of the Fishes', 'time': '30s', 'screen': Hlf()},
+    {'name': 'Camel Pose', 'time': '30s', 'screen': Camelpose()},
+    {'name': 'Bridge Pose', 'time': '30s', 'screen': Bridge()},
+    {'name': 'Standing Forward Bend', 'time': '30s', 'screen': Sfbend()},
+    {'name': 'Cobra Stretch', 'time': '30s', 'screen': Cobra()},
+    {'name': 'Child’s Pose', 'time': '30s', 'screen': Childpose()},
   ];
 
   void _onTabTapped(int index) {
@@ -31,7 +41,7 @@ class _YogaScreenState extends State<YogaScreen> {
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        // current screen
+        // Stay on Yoga Screen
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -40,6 +50,20 @@ class _YogaScreenState extends State<YogaScreen> {
         Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
         break;
     }
+  }
+
+  void _navigateToExercise(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => exercises[index]['screen'],
+      ),
+    );
+  }
+
+  // Navigate to EditProfile screen when profile icon or name is tapped
+  void _navigateToProfile() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
 
   @override
@@ -62,12 +86,18 @@ class _YogaScreenState extends State<YogaScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jayamal Narampanawa",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: Text(
+                          "Jayamal Narampanawa",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/j.jpg'),
+                      GestureDetector(
+                        onTap: _navigateToProfile,
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/j.jpg'),
+                        ),
                       ),
                     ],
                   ),
@@ -118,12 +148,12 @@ class _YogaScreenState extends State<YogaScreen> {
                           ),
                           child: ListTile(
                             leading: Icon(Icons.self_improvement, color: Colors.white),
-                            title: Text(exercises[index]["name"]!, style: TextStyle(color: Colors.white)),
+                            title: Text(exercises[index]["name"], style: TextStyle(color: Colors.white)),
                             trailing: Text(
-                              exercises[index]["time"]!,
+                              exercises[index]["time"],
                               style: TextStyle(color: Colors.white),
                             ),
-                            onTap: () {},
+                            onTap: () => _navigateToExercise(index),
                           ),
                         ),
                       );
