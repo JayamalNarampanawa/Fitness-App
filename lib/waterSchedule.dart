@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class WaterSchedule extends StatelessWidget {
+  //scedule
   final List<Map<String, String>> schedule = [
     {"time": "7:00 – 1st Glass", "desc": "Drink your first glass of water after you wake up to hydrate your body after a long night’s rest. Take your breakfast at least half an hour after the first glass."},
     {"time": "9:00 – 2nd Glass", "desc": "It’s approximately 1 hour after your breakfast; have a glass of water and start your work day."},
@@ -21,7 +22,7 @@ class WaterSchedule extends StatelessWidget {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/home.jpeg', // Use your uploaded image
+              'assets/home.jpeg',
               fit: BoxFit.cover,
             ),
           ),
@@ -32,6 +33,7 @@ class WaterSchedule extends StatelessWidget {
               child: Container(color: Colors.black.withOpacity(0.3)),
             ),
           ),
+          //title
           SafeArea(
             child: Column(
               children: [

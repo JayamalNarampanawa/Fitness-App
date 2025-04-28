@@ -1,3 +1,4 @@
+//importng screens and packages
 import 'package:fitness_app/aboutus.dart';
 import 'package:fitness_app/contact.dart';
 import 'package:fitness_app/locate.dart';
@@ -34,14 +35,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MealScreen()));
         break;
       case 3:
-        // Already on Settings
+        
         break;
     }
   }
-
+//method for log out
   void _handleLogout() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
+        //greeting
         content: Text("Thank You. See you soon!"),
         duration: Duration(seconds: 2),
       ),
@@ -50,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     });
   }
-
+//method to delete account
   void _confirmDeleteAccount() {
     showDialog(
       context: context,
@@ -61,6 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           "Are you sure you want to delete your account?",
           style: TextStyle(color: Colors.white70),
         ),
+        //take confirmation (yes/no)
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -77,10 +80,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-
+//method to get reason
   void _askReasonBeforeDelete() {
-    TextEditingController reasonController = TextEditingController();
 
+    //
+    TextEditingController reasonController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -179,6 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
+          //list on the screen and navigation
           Container(color: Colors.black.withOpacity(0.6)),
           Center(
             child: Column(
@@ -207,6 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ],
       ),
+      //BNB
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

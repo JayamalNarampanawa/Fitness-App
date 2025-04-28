@@ -5,7 +5,7 @@ import 'dashboard.dart';
 import 'settings.dart';
 import 'meal.dart';
 
-// Import the pose screens
+// Importing pose screens
 import 'easyPose.dart';
 import 'hlf.dart';
 import 'camelPose.dart';
@@ -20,7 +20,7 @@ class YogaScreen extends StatefulWidget {
 
 class _YogaScreenState extends State<YogaScreen> {
   int _currentIndex = 1;
-
+//workou list
   final List<Map<String, dynamic>> exercises = [
     {'name': 'Easy Pose', 'time': '30s', 'screen': Easypose()},
     {'name': 'Half Lord of the Fishes', 'time': '30s', 'screen': Hlf()},
@@ -36,12 +36,13 @@ class _YogaScreenState extends State<YogaScreen> {
       _currentIndex = index;
     });
 
+//BNB navigation
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         break;
       case 1:
-        // Stay on Yoga Screen
+        
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MealScreen()));
@@ -65,7 +66,7 @@ class _YogaScreenState extends State<YogaScreen> {
   void _navigateToProfile() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +78,7 @@ class _YogaScreenState extends State<YogaScreen> {
               child: Image.asset('assets/home.jpeg', fit: BoxFit.cover),
             ),
           ),
+          //prfile area
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,6 +104,7 @@ class _YogaScreenState extends State<YogaScreen> {
                     ],
                   ),
                 ),
+                //title
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Center(
@@ -111,6 +114,7 @@ class _YogaScreenState extends State<YogaScreen> {
                     ),
                   ),
                 ),
+                //workout image
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ClipRRect(
@@ -123,6 +127,7 @@ class _YogaScreenState extends State<YogaScreen> {
                     ),
                   ),
                 ),
+                //no. of exercises
                 SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -165,6 +170,7 @@ class _YogaScreenState extends State<YogaScreen> {
           ),
         ],
       ),
+      //BNB
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

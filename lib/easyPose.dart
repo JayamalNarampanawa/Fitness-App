@@ -1,3 +1,4 @@
+//importing packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,7 +7,7 @@ class Easypose extends StatefulWidget {
   @override
   _Easypose createState() => _Easypose();
 }
-
+//variable decleration
 class _Easypose extends State<Easypose> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -20,7 +21,7 @@ class _Easypose extends State<Easypose> {
     _controller = VideoPlayerController.asset('assets/EasyPose.mp4')
       ..initialize().then((_) => setState(() {}));
   }
-
+  //timer control
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -69,14 +70,14 @@ class _Easypose extends State<Easypose> {
       _isPaused = false;
     });
   }
-
+  //UI
   @override
   void dispose() {
     _controller.dispose();
     _timer?.cancel();
     super.dispose();
   }
-
+  //bg
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
@@ -89,6 +90,7 @@ class _Easypose extends State<Easypose> {
             fit: BoxFit.cover,
           ),
         ),
+        //vided attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -99,6 +101,7 @@ class _Easypose extends State<Easypose> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 ),
+              // progressbar
               SizedBox(height: 20),
               LinearProgressIndicator(
                 value: progress,
@@ -107,11 +110,13 @@ class _Easypose extends State<Easypose> {
                 minHeight: 10,
               ),
               SizedBox(height: 20),
+              //seconds
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

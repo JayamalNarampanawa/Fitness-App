@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //screens
 import 'homeschedule.dart';
 import 'meal.dart';
-import 'settings.dart';
+import 'settings.dart';// fluter pub get
 import 'step.dart';
 import 'bmi.dart';
 import 'sleep.dart';

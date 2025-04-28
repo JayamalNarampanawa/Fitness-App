@@ -1,3 +1,4 @@
+//imports
 import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
@@ -29,7 +30,7 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB navigation
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -45,11 +46,11 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
         break;
     }
   }
-
+//days
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
-
+//mela plans
   final List<List<String>> meals = [
     [
       "🍳 3pc brown bread toast + 2 boiled eggs",
@@ -88,14 +89,15 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
     ],
   ];
 
-  // Navigate to EditProfile screen
+  // guest detector (method) for Navigate to EditProfile screen 
   void _navigateToProfile(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //BG
       backgroundColor: Colors.black,
       body: Stack(
         children: [
@@ -118,9 +120,9 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Name (Wrapped with GestureDetector)
+                      //name
                       GestureDetector(
-                        onTap: () => _navigateToProfile(context),
+                        onTap: () => _navigateToProfile(context),//navigate to profile on nam tap
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -132,9 +134,9 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
                           ],
                         ),
                       ),
-                      // Profile Picture (Wrapped with GestureDetector)
+                      //profile icon
                       GestureDetector(
-                        onTap: () => _navigateToProfile(context),
+                        onTap: () => _navigateToProfile(context),//navigate to profile on nam tap
                         child: CircleAvatar(
                           radius: 20,
                           backgroundImage: AssetImage('assets/j.jpg'),
@@ -144,7 +146,7 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
                   ),
                 ),
 
-                // Title: Centered on top of the table
+                // Title
                 SizedBox(height: 20),
                 Center(
                   child: Text(
@@ -157,7 +159,7 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
                   ),
                 ),
 
-                // Meal Plan Table
+                // Meal Plan Table attributes
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -203,6 +205,8 @@ class _WeightGainMealPlanScreenState extends State<WeightGainMealPlanScreen> {
           ),
         ],
       ),
+
+      //BNB attributes
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

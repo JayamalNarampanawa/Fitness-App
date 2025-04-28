@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/home.jpeg"), // Use your background image
+            image: AssetImage("assets/home.jpeg"), 
             fit: BoxFit.cover,
           ),
         ),
+        //title
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,6 +26,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            //content
             const SizedBox(height: 20),
             Expanded(
               child: Container(

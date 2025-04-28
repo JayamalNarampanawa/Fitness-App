@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'waterSchedule.dart'; // Make sure this file exists in your project
+import 'waterSchedule.dart'; 
 
 void main() {
   runApp(WaterTrackerApp());
@@ -19,20 +19,22 @@ class WaterTrackerPage extends StatefulWidget {
   @override
   _WaterTrackerPageState createState() => _WaterTrackerPageState();
 }
-
+//variable declaration
 class _WaterTrackerPageState extends State<WaterTrackerPage> {
   int waterIntake = 0;
   final int goal = 2000;
 
+//method to add water
   void _addWater() {
     setState(() {
       waterIntake = (waterIntake + 250).clamp(0, goal);
     });
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //BG
       backgroundColor: Color(0xFF1A1A1A),
       body: SafeArea(
         child: Stack(
@@ -46,6 +48,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                 ),
               ),
             ),
+            //profile area
             Column(
               children: [
                 Padding(
@@ -53,6 +56,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      //name
                       Expanded(
                         child: Text(
                           "Jayamal Narampanawa",
@@ -60,6 +64,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),
+                      //profile icon
                       SizedBox(width: 10),
                       CircleAvatar(
                         radius: 20,
@@ -68,6 +73,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                     ],
                   ),
                 ),
+                //widget to graph
                 SizedBox(height: 20),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
@@ -92,6 +98,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                     color: Color(0xFF2A2A2A),
                     borderRadius: BorderRadius.circular(20),
                   ),
+                  //water target
                   child: Column(
                     children: [
                       Icon(Icons.water_drop, color: Colors.blue[300], size: 50),
@@ -113,6 +120,7 @@ class _WaterTrackerPageState extends State<WaterTrackerPage> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
+                        
                         onPressed: _addWater,
                         child: Text(
                           "+250ml",

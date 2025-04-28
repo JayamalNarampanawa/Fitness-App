@@ -1,3 +1,4 @@
+//importing packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,7 +7,7 @@ class SquatScreen extends StatefulWidget {
   @override
   _SquatScreenState createState() => _SquatScreenState();
 }
-
+//variable decleration
 class _SquatScreenState extends State<SquatScreen> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -20,7 +21,7 @@ class _SquatScreenState extends State<SquatScreen> {
     _controller = VideoPlayerController.asset('assets/Squat.mp4')
       ..initialize().then((_) => setState(() {}));
   }
-
+//timer control
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _SquatScreenState extends State<SquatScreen> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _SquatScreenState extends State<SquatScreen> {
             fit: BoxFit.cover,
           ),
         ),
+        //vided attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -99,6 +101,8 @@ class _SquatScreenState extends State<SquatScreen> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 ),
+              
+              // progressbar
               SizedBox(height: 20),
               LinearProgressIndicator(
                 value: progress,
@@ -107,11 +111,13 @@ class _SquatScreenState extends State<SquatScreen> {
                 minHeight: 10,
               ),
               SizedBox(height: 20),
+              //seconds
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

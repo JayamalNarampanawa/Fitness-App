@@ -1,3 +1,4 @@
+//IMPORTING PACKJAGES and screens
 import 'package:fitness_app/profile.dart';
 import 'package:flutter/material.dart';
 import 'dashboard.dart';
@@ -32,7 +33,7 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
     setState(() {
       _currentIndex = index;
     });
-
+//BNB Navgaion
     switch (index) {
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -48,11 +49,11 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
         break;
     }
   }
-
+//days 
   final List<String> days = [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
   ];
-
+//meal plan list
   final List<List<String>> meals = [
     ["🥚 Boiled egg", "🥣 Cereal with milk", "🍵 Mixed green salad + Sandwich"],
     ["🍳 Omelette with oats", "🍝 Pasta marinara", "🥗 No food past 6pm"],
@@ -67,7 +68,7 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
   void _navigateToProfile(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,24 +80,23 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
             child: Opacity(
               opacity: 0.2,
               child: Image.asset(
-                'assets/home.jpeg', // Make sure this image exists
+                'assets/home.jpeg',
                 fit: BoxFit.cover,
               ),
             ),
           ),
+          //PROFILE SECTION
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Updated Profile Section
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Name (Wrapped with GestureDetector)
                       GestureDetector(
-                        onTap: () => _navigateToProfile(context),
+                        onTap: () => _navigateToProfile(context),//navigation to profile on name touch
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -108,9 +108,8 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
                           ],
                         ),
                       ),
-                      // Profile Picture (Wrapped with GestureDetector)
                       GestureDetector(
-                        onTap: () => _navigateToProfile(context),
+                        onTap: () => _navigateToProfile(context),//navigate to profile on profile icon touch
                         child: CircleAvatar(
                           radius: 20,
                           backgroundImage: AssetImage('assets/j.jpg'),
@@ -119,8 +118,7 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
                     ],
                   ),
                 ),
-
-                // Title: Centered on top of the table
+                //title
                 SizedBox(height: 20),
                 Center(
                   child: Text(
@@ -181,6 +179,7 @@ class _WeightLossMealPlanScreenState extends State<WeightLossMealPlanScreen> {
           ),
         ],
       ),
+      //BNB
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black87,
         type: BottomNavigationBarType.fixed,

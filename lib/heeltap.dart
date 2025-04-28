@@ -1,3 +1,4 @@
+//importing packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -6,7 +7,7 @@ class Heeltap extends StatefulWidget {
   @override
   _Heeltap createState() => _Heeltap();
 }
-
+//variable decleration
 class _Heeltap extends State<Heeltap> {
   late VideoPlayerController _controller;
   Timer? _timer;
@@ -20,7 +21,7 @@ class _Heeltap extends State<Heeltap> {
     _controller = VideoPlayerController.asset('assets/PilatesHeelTaps.mp4')
       ..initialize().then((_) => setState(() {}));
   }
-
+  //timer control
   void startTimer() {
     if (_isRunning || _seconds == 0) return;
 
@@ -76,11 +77,11 @@ class _Heeltap extends State<Heeltap> {
     _timer?.cancel();
     super.dispose();
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     double progress = (30 - _seconds) / 30;
-
+//bg
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -89,6 +90,7 @@ class _Heeltap extends State<Heeltap> {
             fit: BoxFit.cover,
           ),
         ),
+        //vided attributes
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Center(
           child: Column(
@@ -99,6 +101,8 @@ class _Heeltap extends State<Heeltap> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 ),
+              
+              // progressbar
               SizedBox(height: 20),
               LinearProgressIndicator(
                 value: progress,
@@ -107,11 +111,13 @@ class _Heeltap extends State<Heeltap> {
                 minHeight: 10,
               ),
               SizedBox(height: 20),
+              //seconds
               Text(
                 '$_seconds s',
                 style: TextStyle(fontSize: 36, color: Colors.white),
               ),
               SizedBox(height: 20),
+              //user controls
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

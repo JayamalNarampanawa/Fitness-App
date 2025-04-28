@@ -1,3 +1,4 @@
+//importing packages
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -25,13 +26,13 @@ class StepCounterScreen extends StatefulWidget {
   @override
   State<StepCounterScreen> createState() => _StepCounterScreenState();
 }
-
+///declaring variabels
 class _StepCounterScreenState extends State<StepCounterScreen> {
   int _steps = 0;
   final int _stepGoal = 6000;
   double _distance = 0.0;
   late Stream<StepCount> _stepCountStream;
-
+//weekly steps o chart
   final List<int> _weeklySteps = [1000, 2000, 1500, 3000, 2500, 4000, 5000];
 
   @override
@@ -39,7 +40,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
     super.initState();
     _initPlatformState();
   }
-
+//permission handling
   Future<void> _initPlatformState() async {
     PermissionStatus permission = await Permission.activityRecognition.status;
     if (!permission.isGranted) {
@@ -59,7 +60,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
       (StepCount event) {
         setState(() {
           _steps = event.steps;
-          _distance = _steps * 0.0007; // Approx 0.7m per step
+          _distance = _steps * 0.0007; // calculate avg distance (Approx 0.7m per step)
         });
       },
       onError: (error) {
@@ -72,7 +73,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
   double getProgress() {
     return (_steps / _stepGoal).clamp(0.0, 1.0);
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +93,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
       ),
     );
   }
-
+//BG
   Widget _backgroundImage() {
     return Container(
       decoration: const BoxDecoration(
@@ -103,7 +104,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
       ),
     );
   }
-
+//graph
   Widget _buildStepGraph() {
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -132,6 +133,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
                         fontWeight: FontWeight.bold)),
               ],
             ),
+            //barchart data
             const SizedBox(height: 10),
             SizedBox(
               height: 100,
@@ -161,7 +163,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
       ),
     );
   }
-
+//step counter
   Widget _buildStepCounter() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -201,12 +203,14 @@ class _StepCounterScreenState extends State<StepCounterScreen> {
                 alignment: Alignment.centerLeft,
                 widthFactor: getProgress(),
                 child: Container(
+                  //progress bar
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.green),
                 ),
               ),
             ),
+            //dstance
             const SizedBox(height: 10),
             Text(
               "${_distance.toStringAsFixed(2)} km",

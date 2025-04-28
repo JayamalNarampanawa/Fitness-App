@@ -1,15 +1,16 @@
+//importing package
 import 'package:flutter/material.dart';
 
 class SleepScreen extends StatefulWidget {
   @override
   _SleepScreenState createState() => _SleepScreenState();
 }
-
+//variable declaraiton
 class _SleepScreenState extends State<SleepScreen> {
   bool isSleeping = false;
   DateTime? sleepStartTime;
   Duration totalSleep = Duration.zero;
-
+//method to track
   void _toggleSleepTracking() {
     setState(() {
       if (!isSleeping) {
@@ -23,11 +24,11 @@ class _SleepScreenState extends State<SleepScreen> {
       isSleeping = !isSleeping;
     });
   }
-
+//sleep duration format
   String _formatDuration(Duration duration) {
     return "${duration.inHours}h ${duration.inMinutes.remainder(60)}m";
   }
-
+//UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +37,7 @@ class _SleepScreenState extends State<SleepScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
+          //title
           "Sleep Tracker",
           style: TextStyle(color: Colors.white),
         ),
@@ -46,11 +48,12 @@ class _SleepScreenState extends State<SleepScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            //icon and attributes
             const SizedBox(height: 40),
             const Icon(Icons.nightlight_round, size: 100, color: Colors.deepPurpleAccent),
             const SizedBox(height: 20),
             Text(
-              isSleeping ? "Tracking..." : "Not Tracking",
+              isSleeping ? "Tracking..." : "Not Tracking",//current status
               style: TextStyle(
                 color: isSleeping ? Colors.greenAccent : Colors.grey,
                 fontSize: 22,
@@ -58,7 +61,7 @@ class _SleepScreenState extends State<SleepScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            Text(
+            Text(//toal sleep duration
               "Total Sleep: ${_formatDuration(totalSleep)}",
               style: const TextStyle(
                 color: Colors.white,
@@ -66,6 +69,7 @@ class _SleepScreenState extends State<SleepScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            //tracking btn
             const SizedBox(height: 40),
             ElevatedButton.icon(
               onPressed: _toggleSleepTracking,
@@ -79,6 +83,8 @@ class _SleepScreenState extends State<SleepScreen> {
               icon: Icon(isSleeping ? Icons.pause : Icons.play_arrow),
               label: Text(isSleeping ? "Stop Tracking" : "Start Sleep"),
             ),
+
+            //sleep history
             const SizedBox(height: 50),
             const Align(
               alignment: Alignment.centerLeft,
